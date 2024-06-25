@@ -87,43 +87,31 @@ function remove_wysiwyg()
 add_action('init', 'remove_wysiwyg');
 
 
-/**
- * @param string $page_title ページのtitle属性値
- * @param string $menu_title 管理画面のメニューに表示するタイトル
- * @param string $capability メニューを操作できる権限
- * @param string $menu_slug オプションページのスラッグ
- * @param string|null $icon_url メニューに表示するアイコンの URL
- * @param int $position メニューの位置
- */
-SCF::add_options_page( 
-    'ギャラリー画像',
-    'ギャラリー画像', 
-    'manage_options',
-    'theme-options',
-    'dashicons-format-gallery',
-    11
-);
 
-function create_custom_post_type() {
-    $labels = array(
-        'name' => 'ギャラリー',
-        'singular_name' => 'ギャラリー',
-        'menu_name' => 'ギャラリー',
-        'name_admin_bar' => 'ギャラリー',
-    );
+//固定ページ(page-aboutusの管理画面の本文入力部分を非表示にする)
+function hide_editor_for_about_us_page() {
+    global $pagenow;
 
-    $args = array(
-        'labels' => $labels,
-        'public' => true,
-        'has_archive' => true,
-        'menu_icon' => 'dashicons-format-gallery', // メニューアイコンの指定
-        'supports' => array('title', 'editor', 'thumbnail'),
-    );
-
-    register_post_type('gallery', $args);
+    // 現在の画面が投稿編集画面 ('post.php') の場合
+    if ($pagenow === 'post.php') {
+        // 現在の投稿IDを取得
+        $post_id = isset($_GET['post']) ? $_GET['post'] : (isset($_POST['post_ID']) ? $_POST['post_ID'] : null);
+        
+        // 投稿IDが存在する場合
+        if ($post_id) {
+            // 投稿オブジェクトを取得
+            $post = get_post($post_id);
+            
+            // 投稿のスラッグが 'aboutus' かを確認
+            if ($post->post_name == 'aboutus') {
+                // 'page' 投稿タイプから 'editor' サポートを削除
+                remove_post_type_support('page', 'editor');
+            }
+        }
+    }
 }
-
-add_action('init', 'create_custom_post_type');
+// 'admin_init' アクションフックにフックする
+add_action('admin_init', 'hide_editor_for_about_us_page');
 
 
 

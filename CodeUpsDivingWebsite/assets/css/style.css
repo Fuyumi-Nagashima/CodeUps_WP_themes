@@ -2716,7 +2716,7 @@ a:hover {
 	width: 100%;
 }
 
-.sub-mv__title span {
+.sub-mv__title {
 	color: #fff;
 	display: block; /* spanをブロック要素にして中央揃えを確実にします */
 	font-family: "Lato", sans-serif;
@@ -4204,7 +4204,7 @@ html {
 	margin-top: 9.375rem;
 }
 
-.sub-mv__title span {
+.sub-mv__title {
 	line-height: 1.25;
 }
 
