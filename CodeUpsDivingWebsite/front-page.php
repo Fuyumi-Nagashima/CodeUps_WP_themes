@@ -477,104 +477,85 @@
         </div>
     </section>
     <!-- Price -->
-    <section class="layout-price price">
-      <div class="price__inner inner">
-        <div class="price__section-title section-title">
-          <p class="section-title__primary">price</p>
-          <h2 class="section-title__sub">料金一覧</h2>
+    <?php get_header(); ?>
+
+<main>
+  <!-- 他のセクション -->
+
+  <!-- Price -->
+  <section class="layout-price price">
+    <div class="price__inner inner">
+      <div class="price__section-title section-title">
+        <p class="section-title__primary">price</p>
+        <h2 class="section-title__sub">料金一覧</h2>
+      </div>
+      <div class="price__wrapper">
+        <div class="price__image color">
+          <picture> 
+            <source srcset="<?php echo get_theme_file_uri(); ?>/assets/images/common/top-price-sp.webp" media="(max-width:767px)" type="image/webp" >
+            <source srcset="<?php echo get_theme_file_uri(); ?>/assets/images/common/top-price-sp.jpg" media="(max-width:767px)">
+            <source srcset="<?php echo get_theme_file_uri(); ?>/assets/images/common/top-price-pc.webp" type="image/webp" >
+            <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/top-price-pc.jpg" alt="赤色の複数の熱帯魚が海の中で泳いでいる様子">
+          </picture>
         </div>
-        <div class="price__wrapper">
-          <div class="price__image color">
-            <picture> 
-              <source srcset="<?php echo get_theme_file_uri(); ?>/assets/images/common/top-price-sp.webp" media="(max-width:767px)" type="image/webp" >
-              <source srcset="<?php echo get_theme_file_uri(); ?>/assets/images/common/top-price-sp.jpg" media="(max-width:767px)">
-              <source srcset="<?php echo get_theme_file_uri(); ?>/assets/images/common/top-price-pc.webp" type="image/webp" >
-              <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/top-price-pc.jpg" alt="赤色の複数の熱帯魚が海の中で泳いでいる様子">
-            </picture>
-          </div>
+
         <div class="price__table price-table">
-            <div class="price-table__content">
-              <h3 class="price-table__head">ライセンス講習</h3>
-              <dl class="price-table__item-wrap">
-                <div class="price-table__item">
-                  <dt class="price-table__course">オープンウォーターダイバーコース</dt>
-                  <dd class="price-table__price">&yen;50,000</dd>
-                </div>
-                <div class="price-table__item">
-                  <dt class="price-table__course">アドバンスドオープンウォーターコース</dt>
-                  <dd class="price-table__price">&yen;60,000</dd>
-                </div>
-                <div class="price-table__item">
-                  <dt class="price-table__course">レスキュー＋EFRコース</dt>
-                  <dd class="price-table__price">&yen;70,000</dd>
-                </div>
-              </dl>
-            </div>
-            <div class="price-table__content">
-              <h3 class="price-table__head">体験ダイビング</h3>
-              <dl class="price-table__item-wrap">
-                <div class="price-table__item">
-                  <dt class="price-table__course">ビーチ体験ダイビング(半日)</dt>
-                  <dd class="price-table__price">&yen;7,000</dd>
-                </div>
-                <div class="price-table__item">
-                  <dt class="price-table__course">ビーチ体験ダイビング(1日)</dt>
-                  <dd class="price-table__price">&yen;14,000</dd>
-                </div>
-                <div class="price-table__item">
-                  <dt class="price-table__course">ボート体験ダイビング(半日)</dt>
-                  <dd class="price-table__price">&yen;10,000</dd>
-                </div>
-                <div class="price-table__item">
-                  <dt class="price-table__course">ボート体験ダイビング(1日)</dt>
-                  <dd class="price-table__price">&yen;18,000</dd>
-                </div>
-              </dl>
-            </div>
-            <div class="price-table__content">
-              <h3 class="price-table__head">ファンダイビング</h3>
-              <dl class="price-table__item-wrap">
-                <div class="price-table__item">
-                  <dt class="price-table__course">ビーチダイビング(2ダイブ)</dt>
-                  <dd class="price-table__price">&yen;14,000</dd>
-                </div>
-                <div class="price-table__item">
-                  <dt class="price-table__course">ボートダイビング(2ダイブ)</dt>
-                  <dd class="price-table__price">&yen;18,000</dd>
-                </div>
-                <div class="price-table__item">
-                  <dt class="price-table__course">スペシャルダイビング(2ダイブ)</dt>
-                  <dd class="price-table__price">&yen;24,000</dd>
-                </div>
-                <div class="price-table__item">
-                  <dt class="price-table__course">ナイトダイビング(1ダイブ)</dt>
-                  <dd class="price-table__price">&yen;10,000</dd>
-                </div>
-              </dl>
-            </div>
-            <div class="price-table__content">
-              <h3 class="price-table__head">スペシャルダイビング</h3>
-              <dl class="price-table__item-wrap">
-                <div class="price-table__item">
-                  <dt class="price-table__course">貸切ダイビング(2ダイブ)</dt>
-                  <dd class="price-table__price">&yen;24,000</dd>
-                </div>
-                <div class="price-table__item">
-                  <dt class="price-table__course">1日ダイビング(3ダイブ)</dt>
-                  <dd class="price-table__price">&yen;32,000</dd>
-                </div>
-              </dl>
-            </div>
+          <?php
+            // 固定ページ「料金一覧」のIDを指定
+            $page_id = 213;
+
+            // SCFを使ってカスタムフィールドからプラン情報を取得
+            $plans = [
+              1 => [
+                'title' => SCF::get('plan_1', $page_id),
+                'courses' => SCF::get('course-1', $page_id)
+              ],
+              2 => [
+                'title' => SCF::get('plan_2', $page_id),
+                'courses' => SCF::get('course-2', $page_id)
+              ],
+              3 => [
+                'title' => SCF::get('plan_3', $page_id),
+                'courses' => SCF::get('course-3', $page_id)
+              ],
+              4 => [
+                'title' => SCF::get('plan_4', $page_id),
+                'courses' => SCF::get('course-4', $page_id)
+              ],
+            ];
+
+            foreach ($plans as $plan_id => $plan) :
+              if (!empty($plan['title'])) :
+          ?>
+          <div class="price-table__content">
+            <h3 class="price-table__head"><?php echo esc_html($plan['title']); ?></h3>
+            <dl class="price-table__item-wrap">
+              <?php foreach ($plan['courses'] as $course) : ?>
+              <div class="price-table__item">
+                <dt class="price-table__course"><?php echo esc_html($course['course_' . $plan_id]); ?></dt>
+                <dd class="price-table__price">&yen;<?php echo esc_html($course['price_' . $plan_id]); ?></dd>
+              </div>
+              <?php endforeach; ?>
+            </dl>
           </div>
+          <?php endif; endforeach; ?>
         </div>
-          <div class="price__btn">
-            <a href="./page-price.html" class="btn">
-              <span>view&nbsp;more </span>
-              <div class="btn__arrow"></div>
-            </a>
-          </div>
-      </div> 
-    </section>   
+      </div>
+      <div class="price__btn">
+        <a href="<?php echo get_permalink($page_id); ?>" class="btn">
+          <span>view&nbsp;more </span>
+          <div class="btn__arrow"></div>
+        </a>
+      </div>
+    </div>
+  </section> 
+
+  <!-- 他のセクション -->
+
+</main>
+
+<?php get_footer(); ?>
+  
   </main>
   <?php get_footer(); ?>
   

@@ -102,8 +102,8 @@ function hide_editor_for_about_us_page() {
             // 投稿オブジェクトを取得
             $post = get_post($post_id);
             
-            // 投稿のスラッグが 'aboutus' かを確認
-            if ($post->post_name == 'aboutus') {
+            // 投稿のスラッグが 'aboutus' または 'pricelist' かを確認
+            if ($post->post_name == 'aboutus' || $post->post_name == 'price') {
                 // 'page' 投稿タイプから 'editor' サポートを削除
                 remove_post_type_support('page', 'editor');
             }
@@ -112,8 +112,4 @@ function hide_editor_for_about_us_page() {
 }
 // 'admin_init' アクションフックにフックする
 add_action('admin_init', 'hide_editor_for_about_us_page');
-
-
-
-
 
