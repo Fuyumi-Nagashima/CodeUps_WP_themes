@@ -6,11 +6,17 @@
         margin-inline: auto;
     }
 }
-.accordion{
+/*.accordion{
     display: grid;
     gap:rem(40);
     @include mq('md'){
         gap: rem(34);
+    }
+}*/
+.accordion__item + .accordion__item {
+    margin-top:rem(40) ;
+    @include mq('md'){
+        margin-top:rem(34) ;
     }
 }
 .accordion__question {
@@ -18,11 +24,10 @@
     color:$white;
     cursor: pointer;
     font-size: rem(16);
-    padding: rem(16);
+    padding:rem(25) rem(96) rem(25) rem(40);
     position: relative;
     @include mq('md'){
     font-size: rem(20);
-    padding: rem(25) rem(40);
     }
 }
 .accordion__question::before {

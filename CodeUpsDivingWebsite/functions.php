@@ -103,7 +103,7 @@ function hide_editor_for_about_us_page() {
             $post = get_post($post_id);
             
             // 投稿のスラッグが 'aboutus' または 'pricelist' かを確認
-            if ($post->post_name == 'aboutus' || $post->post_name == 'price') {
+            if ($post->post_name == 'aboutus' || $post->post_name == 'price'|| $post->post_name == 'faq'|| $post->post_name == 'top') {
                 // 'page' 投稿タイプから 'editor' サポートを削除
                 remove_post_type_support('page', 'editor');
             }
@@ -112,4 +112,38 @@ function hide_editor_for_about_us_page() {
 }
 // 'admin_init' アクションフックにフックする
 add_action('admin_init', 'hide_editor_for_about_us_page');
+
+/**
+ * @param string $page_title ページのtitle属性値
+ * @param string $menu_title 管理画面のメニューに表示するタイトル
+ * @param string $capability メニューを操作できる権限（maange_options とか）
+ * @param string $menu_slug オプションページのスラッグ。ユニークな値にすること。
+ * @param string|null $icon_url メニューに表示するアイコンの URL
+ * @param int $position メニューの位置
+ */
+
+/*SCF::add_options_page(
+	'ギャラリー画像',
+	'ギャラリー画像',
+	'manage_options',
+	'gallery-option',
+	'dashicons-format-gallery',
+	11
+);*/
+SCF::add_options_page(
+	'よくある質問',
+	'よくある質問',
+	'manage_options',
+	'faq-option',
+	'dashicons-format-status',
+	11
+);
+SCF::add_options_page(
+	'MVスライダー',
+	'MVスライダー',
+	'manage_options',
+	'mv-option',
+	'dashicons-format-gallery',
+	11
+);
 
