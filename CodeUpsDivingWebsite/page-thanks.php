@@ -7,14 +7,8 @@
       </h2>
     </div>
   </section>
-  <!-- パンくず -->
-  <div class="breadcrumb">
-    <div class="breadcrumb__inner inner">
-      <?php if (function_exists('bcn_display')) {
-        bcn_display();
-        } 
-      ?>
-  </div>
+  
+  
   <!-- サンクスページ -->
   <section class="layout-page-thanks page-thanks">
     <div class="page-thanks__inner inner">

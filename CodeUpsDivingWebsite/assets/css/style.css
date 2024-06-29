@@ -208,6 +208,10 @@ a:hover {
 	margin-top: 5.9375rem;
 }
 
+.layout-footer .is-404 {
+	margin-top: 0 !important;
+}
+
 .layout-header {
 	left: 0;
 	position: fixed;
@@ -1989,36 +1993,6 @@ a:hover {
 	text-align: center;
 }
 
-/*.form__btn-submit span::first-letter{
-    text-transform:uppercase;
-}*/
-
-/*.form__btn-submit::after{
-    background:$white;
-    border:1px solid $main-green;
-    position: absolute;
-    top: 0;
-    left: 0;  
-    content: '';
-    width: 100%;
-    height: 100%;
-    transform: scale(0, 1);
-    transform-origin: left top;
-    transition: .2s cubic-bezier(0.45, 0, 0.55, 1);
-    z-index: -10;
-}*/
-
-/*.wpcf7-form-control.wpcf7-submit {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    cursor: pointer;
-    z-index: 2;  
-}*/
-
 .wpcf7-form-control.wpcf7-checkbox {
 	display: flex;
 	flex-direction: column;
@@ -2082,16 +2056,26 @@ a:hover {
 	border: 1px solid #C94800;
 }
 
-/* 追加のスタイル */
-
-/*.form__btn-submit {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-    text-align: center;
+/*.form__btn-submit span::first-letter{
+    text-transform:uppercase;
 }*/
 
-/*.form__btn-submit input[type="submit"] {
+/*.form__btn-submit::after{
+    background:$white;
+    border:1px solid $main-green;
+    position: absolute;
+    top: 0;
+    left: 0;  
+    content: '';
+    width: 100%;
+    height: 100%;
+    transform: scale(0, 1);
+    transform-origin: left top;
+    transition: .2s cubic-bezier(0.45, 0, 0.55, 1);
+    z-index: -10;
+}*/
+
+/*.wpcf7-form-control.wpcf7-submit {
     position: absolute;
     top: 0;
     left: 0;
@@ -2099,6 +2083,7 @@ a:hover {
     height: 100%;
     opacity: 0;
     cursor: pointer;
+    z-index: 2;  
 }*/
 
 .fv {

@@ -1,4 +1,14 @@
 <?php get_header(); ?>
+<?php 
+  $campaign = esc_url( home_url('/campaign/'));
+  $aboutus = esc_url( home_url('/aboutus/'));
+  $information = esc_url( home_url('/information/'));
+  $blog = esc_url( home_url('/blog/'));
+  $voice = esc_url( home_url('/voice/'));
+  $price = esc_url( home_url('/price/'));
+  $faq = esc_url( home_url('/faq/'));
+  $contact = esc_url( home_url('/contact/'));
+  ?>
   <main>
   <div class="fv">
     <div class="fv__inner">
@@ -60,13 +70,13 @@
               <?php
               $args = array(
                 'post_type' => 'campaign', 
-                'orderby'        => 'date',
+                'orderby' => 'date',
                 'order' => 'DESC',
                 'posts_per_page' => -1 
                 );
                 $the_query = new WP_Query( $args );
                 ?>
-                 <?php if ($the_query->have_posts()): while ($the_query->have_posts()): $the_query->the_post(); ?>
+                <?php if ($the_query->have_posts()): while ($the_query->have_posts()): $the_query->the_post(); ?>
                 <li class="swiper-slide campaign-swiper__slide page-campaign__card campaign-list" data-category="<?php echo get_the_terms(get_the_ID(), 'campaign_category')[0]->slug; ?>">
                   <div class="campaign-list__link">
                     <figure class="campaign-list__image campaign-list__image--sub-page">
@@ -104,7 +114,6 @@
               <?php endwhile; ?>
               <?php wp_reset_postdata(); ?>
               <?php endif; ?>
-              <!-- swiper動作確認用のスライド追加 -->
               </ul>          
             </div>
           </div>
@@ -157,7 +166,7 @@
                 <p class="about-content__text">
                   ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。<br>ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキスト</p>
                 <div class="about-content__btn">
-                  <a href="./page-about.html" class="btn">
+                  <a href="<?php echo $aboutus; ?>" class="btn">
                     <span>view&nbsp;more</span>
                     <div class="btn__arrow"></div>
                   </a>
@@ -195,7 +204,7 @@
                 </p>
               </div>
               <div class="information__btn">
-                <a href="./page-information.html" class="btn">
+                <a href="<?php echo $information; ?>" class="btn">
                   <span>view&nbsp;more </span>
                   <div class="btn__arrow"></div>
                 </a>
@@ -205,103 +214,64 @@
         </div>
       </section>
       <!-- Blog -->
-      <section class="layout-blog blog">
-      <div class="blog__inner inner">
+<section class="layout-blog blog">
+    <div class="blog__inner inner">
         <div class="blog__section-title section-title">
-          <p class="section-title__primary section-title__primary--white">blog</p>
-          <h2 class="section-title__sub section-title__sub--white">ブログ</h2>
+            <p class="section-title__primary section-title__primary--white">blog</p>
+            <h2 class="section-title__sub section-title__sub--white">ブログ</h2>
         </div>
         <div class="blog__cards cards">
-          <a href="./single.html" class="cards__item card">
-            <figure class="card__image">
-              <picture>
-                <source
-                  srcset="<?php echo get_theme_file_uri(); ?>/assets/images/common/blog-01.webp"
-                  type="image/webp"
-                />
-                <img
-                  src="<?php echo get_theme_file_uri(); ?>/assets/images/common/blog-01.jpg"
-                  alt="ピンクと赤色のサンゴ礁の写真"
-                />
-              </picture>
-            </figure>
-            <div class="card__body">
-              <div class="card__meta">
-                <time class="card__date" datetime="2023-11-17"
-                  >2023/11/17</time
-                >
-                <h3 class="card__title">ライセンス取得</h3>
+            <?php
+            $args = array(
+              'post_type'      => 'post', // 通常の投稿タイプを指定
+              'orderby'        => 'date', // 日付で並べ替え
+              'order'          => 'DESC', // 降順で並べ替え（最新の投稿が最初）
+              'posts_per_page' => 3       // 最新の投稿3件を取得
+            );
+            $the_query = new WP_Query($args);
+            ?>
+            <?php if ($the_query->have_posts()): while ($the_query->have_posts()): $the_query->the_post(); ?>
+              <a href="<?php the_permalink(); ?>" class="cards__item card">
+                <figure class="card__image">
+                  <?php 
+                    if (has_post_thumbnail()) {
+                      the_post_thumbnail('full');
+                    } else {
+                      // 投稿の本文を取得
+                      $content = get_the_content();
+                      // 本文から最初の画像を抽出
+                      preg_match('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $content, $matches);
+                      // 画像があれば表示
+                      if (!empty($matches)) {
+                        echo $matches[0];
+                      }
+                    }
+                  ?>
+                </figure>
+                  <div class="card__body">
+                    <div class="card__meta">
+                      <time class="card__date" datetime="<?php the_time('c'); ?>"><?php the_time('Y/m/d'); ?></time>
+                      <h3 class="card__title"><?php the_title(); ?></h3>
+                    </div>
+                    <div class="card__text-body">
+                      <p class="card__text">
+                        <?php echo wp_trim_words(get_the_content(), 90, '…'); ?>
+                      </p>
+                    </div>
+                  </div>
+                </a>
+                <?php endwhile; ?>
+                <?php wp_reset_postdata(); ?>
+                <?php endif; ?>
               </div>
-              <div class="card__text-body">
-                <p class="card__text">
-                  ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。<br>ここにテキストが入ります。ここにテキストが入ります。ここにテキスト
-                </p>
-              </div>
-            </div>
-          </a>
-          <a href="#" class="cards__item card">
-            <figure class="card__image">
-              <picture>
-                <source
-                  srcset="<?php echo get_theme_file_uri(); ?>/assets/images/common/blog-02.webp"
-                  type="image/webp"
-                />
-                <img
-                  src="<?php echo get_theme_file_uri(); ?>/assets/images/common/blog-02.jpg"
-                  alt="ウミガメが海を泳いでいる様子"
-                />
-              </picture>
-            </figure>
-            <div class="card__body">
-              <div class="card__meta">
-                <time class="card__date" datetime="2023-11-17"
-                  >2023/11/17</time
-                >
-                <h3 class="card__title">ウミガメと泳ぐ</h3>
-              </div>
-              <div class="card__text-body">
-                <p class="card__text">
-                  ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。<br>ここにテキストが入ります。ここにテキストが入ります。ここにテキスト
-                </p>
+              <div class="blog__btn">
+                <a href="<?php echo $blog; ?>" class="btn">
+                  <span>view&nbsp;more </span>
+                  <div class="btn__arrow"></div>
+                </a>
               </div>
             </div>
-          </a>
-          <a href="#" class="cards__item card">
-            <figure class="card__image">
-              <picture>
-                <source
-                  srcset="<?php echo get_theme_file_uri(); ?>/assets/images/common/blog-03.webp"
-                  type="image/webp"
-                />
-                <img
-                  src="<?php echo get_theme_file_uri(); ?>/assets/images/common/blog-03.jpg"
-                  alt="カクレクマノミがサンゴ礁の間に隠れている様子"
-                />
-              </picture>
-            </figure>
-            <div class="card__body">
-              <div class="card__meta">
-                <time class="card__date" datetime="2023-11-17"
-                  >2023/11/17</time
-                >
-                <h3 class="card__title">カクレクマノミ</h3>
-              </div>
-              <div class="card__text-body">
-                <p class="card__text">
-                  ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。<br>ここにテキストが入ります。ここにテキストが入ります。ここにテキスト
-                </p>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="blog__btn">
-          <a href="./home.html" class="btn">
-            <span>view&nbsp;more </span>
-            <div class="btn__arrow"></div>
-          </a>
-        </div>
-      </div>
-      </section>
+          </section>
       <!-- Voice -->
       <section class="layout-voice voice">
         <div class="voice__inner inner">
@@ -310,65 +280,63 @@
             <h2 class="section-title__sub">お客様の声</h2>
           </div>
           <div class="voice__cards voice-cards">
+            <?php
+            $args = array(
+                'post_type'      => 'voice',
+                'posts_per_page' => 2,
+                'orderby'        => 'rand' // ランダムな順序で並べ替え
+            );
+            $the_query = new WP_Query($args);
+            if ($the_query->have_posts()) :
+              while ($the_query->have_posts()) : $the_query->the_post();
+            ?>
             <article class="voice-cards__item voice-card">
-              <div class="voice-card__wrap">
-                <div class="voice-card__head">
-                    <p class="voice-card__profile">20代(女性)</p>
-                    <span class="voice-card__category">ライセンス講習</span>
-                  <h3 class="voice-card__title">ここにタイトルが入ります。ここにタイトル</h3>
+                <div class="voice-card__wrap">
+                  <div class="voice-card__head voice-card__head--subpage">
+                    <p class="voice-card__profile">
+                      <?php $personalInfo = get_field('profile'); if ($personalInfo) :?>
+                        <?php echo esc_html($personalInfo['profile_age']); ?>代(<?php echo esc_html($personalInfo['profile_gender']); ?>)
+                      <?php endif; ?>
+                    </p>
+                    <span class="voice-card__category">
+                      <?php
+                      $taxonomy_terms = get_the_terms(get_the_ID(), 'voice_category');
+                        if (!empty($taxonomy_terms)) {
+                          foreach ($taxonomy_terms as $taxonomy_term) {
+                            echo '<span>' . esc_html($taxonomy_term->name) . '</span>';
+                          }
+                        }
+                      ?>
+                    </span>
+                    <h2 class="voice-card__title"><?php the_field('title'); ?></h2>
+                  </div>
+                  <figure class="voice-card__image color">
+                    <?php the_post_thumbnail('full'); ?>
+                  </figure>
                 </div>
-                <figure class="voice-card__image color">
-                  <picture>
-                    <source srcset="<?php echo get_theme_file_uri(); ?>/assets/images/common/voice-01.webp" type="image/webp"/>
-                    <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/voice-01.jpg" alt="麦わら帽子をかぶって微笑んでいる女性"/>
-                  </picture>
-                </figure>
-              </div>
-              <div class="voice-card__text-body">
-                <p class="voice-card__text">
-                  ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。<br>
-                  ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。<br>
-                  ここにテキストが入ります。ここにテキストが入ります。
-                </p>
-              </div>
-            </article>
-            <article class="voice-cards__item voice-card">
-              <div class="voice-card__wrap">
-                <div class="voice-card__head">
-                  <p class="voice-card__profile">20代(男性)</p>
-                  <span class="voice-card__category">ファンダイビング</span>
-                  <h3 class="voice-card__title">ここにタイトルが入ります。ここにタイトル</h3>
+                <div class="voice-card__text-body">
+                  <p class="voice-card__text">
+                    <?php 
+                    $text = get_field('text');
+                    if ($text) {
+                      $trimmed_text = wp_trim_words($text, 120, '... <a href="' . get_permalink() . '">[...続きを読む]</a>'); echo $trimmed_text;
+                    }
+                    ?>
+                  </p>
                 </div>
-                <figure class="voice-card__image color">
-                  <picture>
-                    <source srcset="<?php echo get_theme_file_uri(); ?>/assets/images/common/voice-02.webp" type="image/webp"/>
-                    <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/voice-02.jpg" alt="紺色の長袖シャツを着た男性が親指を突き出している様子"/>
-                  </picture>
-                </figure>
-              </div>
-              <div class="voice-card__text-body">
-                <p class="voice-card__text">
-                  ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。<br>
-                  ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。<br>
-                  ここにテキストが入ります。ここにテキストが入ります。
-                </p>
-              </div>
-            </article>
-          </div>
-          <div class="voice__btn">
-            <a href="./page-voice.html" class="btn">
-              <span>view&nbsp;more </span>
-              <div class="btn__arrow"></div>
-            </a>
-          </div>
+              </article>
+            <?php endwhile; ?>
+            <?php wp_reset_postdata(); ?>
+            <?php endif; ?>
         </div>
-    </section>
-    <!-- Price -->
-    <?php get_header(); ?>
-
-<main>
-  <!-- 他のセクション -->
-
+        <div class="voice__btn">
+            <a href="<?php echo $voice; ?>" class="btn">
+                <span>view&nbsp;more </span>
+                <div class="btn__arrow"></div>
+            </a>
+        </div>
+    </div>
+</section>
   <!-- Price -->
   <section class="layout-price price">
     <div class="price__inner inner">
@@ -429,16 +397,12 @@
         </div>
       </div>
       <div class="price__btn">
-        <a href="<?php echo get_permalink($page_id); ?>" class="btn">
+        <a href="<?php echo $price; ?>" class="btn">
           <span>view&nbsp;more </span>
           <div class="btn__arrow"></div>
         </a>
       </div>
     </div>
   </section> 
-
-  <!-- 他のセクション -->
-
 </main>
-
 <?php get_footer(); ?>

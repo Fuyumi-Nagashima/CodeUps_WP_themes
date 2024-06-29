@@ -9,7 +9,6 @@
       </h2>
     </div>
   </section>
-  
   <!-- パンくず -->
   <div class="breadcrumb">
     <div class="breadcrumb__inner inner">

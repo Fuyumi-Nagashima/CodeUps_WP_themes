@@ -175,3 +175,13 @@ function custom_cf7_redirect() {
 add_action('wp_footer', 'custom_cf7_redirect');
 
 
+function add_custom_body_class($classes) {
+    if (is_404()) {
+        $classes[] = 'is-404';
+    }
+    return $classes;
+}
+add_filter('body_class', 'add_custom_body_class');
+
+
+

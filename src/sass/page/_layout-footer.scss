@@ -6,3 +6,8 @@
         
     }
 }
+
+//404.phpのときだけlayout-footerのmarginを消す
+.layout-footer .is-404 {
+    margin-top: 0 !important;
+}

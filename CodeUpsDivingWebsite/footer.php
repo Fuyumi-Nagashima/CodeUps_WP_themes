@@ -12,6 +12,7 @@
   $privacypolicy = esc_url( home_url('/privacy-policy/'));
   $termsofservice = esc_url( home_url('/terms-of-service/'));
   ?>
+<?php if (!is_404()) : ?>
 <section class="layout-contact contact">
     <div class="contact__inner inner">
         <div class="contact__container">
@@ -54,6 +55,7 @@
         </div>
       </div>
     </section>
+  <?php endif; ?>
 <footer class="layout-footer footer">
       <div class="footer__inner inner">
         <div class="footer__top">
