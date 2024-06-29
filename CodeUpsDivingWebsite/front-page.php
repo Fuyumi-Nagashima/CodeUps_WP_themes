@@ -1,111 +1,43 @@
 <?php get_header(); ?>
-    <main>
-      <!-- fv -->
-      <div class="fv">
-        <div class="fv__inner">
-          <div class="swiper fv__swiper js-fv__swiper">
+  <main>
+  <div class="fv">
+    <div class="fv__inner">
+        <div class="swiper fv__swiper js-fv__swiper">
             <div class="swiper-wrapper fv__swiper-wrapper">
-              <div class="swiper-slide fv__swiper-slide">
-                <picture>
-                  <source
-                    srcset="<?php echo get_theme_file_uri(); ?>/assets/images/common/top-fv-sp01.webp"
-                    media="(max-width:767px)"
-                    type="image/webp"
-                  />
-                  <source
-                    srcset="<?php echo get_theme_file_uri(); ?>/assets/images/common/top-fv-sp01.jpg"
-                    media="(max-width:767px)"
-                  />
-                  <source
-                    srcset="<?php echo get_theme_file_uri(); ?>/assets/images/common/top-fv-pc01.webp"
-                    type="image/webp"
-                  />
-                  <img
-                    src="<?php echo get_theme_file_uri(); ?>/assets/images/common/top-fv-pc01.jpg"
-                    alt="ウミガメが海の中を泳いでいる様子"
-                    decoding="async"
-                    loading="lazy"
-                  />
-                </picture>
-              </div>
-              <div class="swiper-slide fv__swiper-slide">
-                <picture>
-                  <source
-                    srcset="<?php echo get_theme_file_uri(); ?>/assets/images/common/top-fv-sp02.webp"
-                    media="(max-width:767px)"
-                    type="image/webp"
-                  />
-                  <source
-                    srcset="<?php echo get_theme_file_uri(); ?>/assets/images/common/top-fv-sp02.jpg"
-                    media="(max-width:767px)"
-                  />
-                  <source
-                    srcset="<?php echo get_theme_file_uri(); ?>/assets/images/common/top-fv-pc02.webp"
-                    type="image/webp"
-                  />
-                  <img
-                    src="<?php echo get_theme_file_uri(); ?>/assets/images/common/top-fv-pc02.jpg"
-                    alt="ウミガメが泳いでいる海の中を2人の人がスキューバーダイビングしている様子"
-                    decoding="async"
-                    loading="lazy"
-                  />
-                </picture>
-              </div>
-              <div class="swiper-slide fv__swiper-slide">
-                <picture>
-                  <source
-                    srcset="<?php echo get_theme_file_uri(); ?>/assets/images/common/top-fv-sp03.webp"
-                    media="(max-width:767px)"
-                    type="image/webp"
-                  />
-                  <source
-                    srcset="<?php echo get_theme_file_uri(); ?>/assets/images/common/top-fv-sp03.jpg"
-                    media="(max-width:767px)"
-                  />
-                  <source
-                    srcset="<?php echo get_theme_file_uri(); ?>/assets/images/common/top-fv-pc03.webp"
-                    type="image/webp"
-                  />
-                  <img
-                    src="<?php echo get_theme_file_uri(); ?>/assets/images/common/top-fv-pc03.jpg"
-                    alt="海にボートが浮かんでいる様子"
-                    decoding="async"
-                    loading="lazy"
-                  />
-                </picture>
-              </div>
-              <div class="swiper-slide fv__swiper-slide ">
-                <picture>
-                  <source
-                    srcset="<?php echo get_theme_file_uri(); ?>/assets/images/common/top-fv-sp04.webp"
-                    media="(max-width:767px)"
-                    type="image/webp"
-                  />
-                  <source
-                    srcset="<?php echo get_theme_file_uri(); ?>/assets/images/common/top-fv-sp04.jpg"
-                    media="(max-width:767px)"
-                  />
-                  <source
-                    srcset="<?php echo get_theme_file_uri(); ?>/assets/images/common/top-fv-pc04.webp"
-                    type="image/webp"
-                  />
-                  <img
-                    src="<?php echo get_theme_file_uri(); ?>/assets/images/common/top-fv-pc04.jpg"
-                    alt="エメラルドグリーンの綺麗なビーチが広がっている様子"
-                    decoding="async"
-                    loading="lazy"
-                  />
-                </picture>
-              </div>
+                <?php 
+                // ACFからPC用画像とSP用画像を取得
+                $pc_images = get_field('mv_img_pc');
+                $sp_images = get_field('mv_img_sp');
+                
+                // 画像が存在する場合、ループで表示
+                if ($pc_images && $sp_images) :
+                    for ($i = 1; $i <= 4; $i++) : 
+                        $pc_image = $pc_images["mv_pc_0$i"];
+                        $sp_image = $sp_images["mv_sp_0$i"];
+                        if ($pc_image && $sp_image) :
+                ?>
+                        <div class="swiper-slide fv__swiper-slide">
+                            <picture>
+                                <source srcset="<?php echo esc_url($sp_image['sizes']['medium_large']); ?>" media="(max-width:767px)" />
+                                <img src="<?php echo esc_url($pc_image['sizes']['large']); ?>" alt="<?php echo esc_attr($pc_image['alt']); ?>" decoding="async" loading="lazy" />
+                            </picture>
+                        </div>
+                <?php 
+                        endif;
+                    endfor;
+                endif;
+                ?>
             </div>
             <div class="fv__title-wrap">
-              <p class="fv__title-large">diving</p>
-              <p class="fv__title-small">into&nbsp;the&nbsp;ocean</p>
+                <p class="fv__title-large">diving</p>
+                <p class="fv__title-small">into&nbsp;the&nbsp;ocean</p>
             </div>
-            
-          </div>
         </div>
-      </div>
+    </div>
+</div>
+
+
+
       <!-- campaign -->
       <section class="layout-campaign campaign">
         <div class="campaign__inner inner">
@@ -122,107 +54,59 @@
           <div class="campaign__swiper campaign-swiper">
             <div class="swiper js-campaign-swiper">
               <ul class="swiper-wrapper campaign-swiper__wrapper ">
-                <li class="swiper-slide campaign-swiper__slide campaign-list">
-                  <a class="campaign-list__link" href="#">
-                    <figure class="campaign-list__image">
-                      <picture>
-                        <source srcset="<?php echo get_theme_file_uri(); ?>/assets/images/common/campaign1.webp" type="image/webp"/>
-                        <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/campaign1.jpg" alt="カラフルな魚が泳いでいる様子"/>
-                      </picture>
+              <?php
+              $args = array(
+                'post_type' => 'campaign', 
+                'orderby'        => 'date',
+                'order' => 'DESC',
+                'posts_per_page' => -1 
+                );
+                $the_query = new WP_Query( $args );
+                ?>
+                 <?php if ($the_query->have_posts()): while ($the_query->have_posts()): $the_query->the_post(); ?>
+                <li class="swiper-slide campaign-swiper__slide page-campaign__card campaign-list" data-category="<?php echo get_the_terms(get_the_ID(), 'campaign_category')[0]->slug; ?>">
+                  <div class="campaign-list__link">
+                    <figure class="campaign-list__image campaign-list__image--sub-page">
+                      <?php if (has_post_thumbnail()) : ?>
+                        <?php the_post_thumbnail('full'); ?>
+                        <?php else : ?>
+                          <img src="<?php echo esc_url(get_theme_file_uri("/assets/images/common/noimage.jpg")); ?>" alt="NoImage画像" loading="lazy">
+                      <?php endif; ?>
                     </figure>
-                    <div class="campaign-list__body">
-                        <span class="campaign-list__category">ライセンス講習</span>
-                        <h3 class="campaign-list__title">ライセンス取得</h3>
-                        <p class="campaign-list__text">全部コミコミ(お一人様)</p>
+                    <div class="campaign-list__body campaign-list__body--subpage">
+                      <span class="campaign-list__category">
+                        <?php
+                          $taxonomy_terms = get_the_terms(get_the_ID(), 'campaign_category');
+                          if (!empty($taxonomy_terms)) {
+                          foreach ($taxonomy_terms as $taxonomy_term) {
+                          echo '<span>' . esc_html($taxonomy_term->name) . '</span>';
+                          }
+                          }
+                        ?>
+                      </span>
+                      <h3 class="campaign-list__title "><?php the_title(); ?></h3>
+                      <p class="campaign-list__text campaign-list__text--subpage">全部コミコミ(お一人様)</p>
                       <div class="campaign-list__price">
-                          <p class="campaign-list__number">¥56,000</p>
-                          <p class="campaign-list__discount-number">¥46,000</p>
+                        <?php
+                        // SCFで追加したカスタムフィールドを取得
+                          $regular_price = SCF::get('regular_price');
+                          $discount_price = SCF::get('discount_price');
+                          echo '<p class="campaign-list__number">¥' . number_format((float)$regular_price) . '</p>';
+                          echo '<p class="campaign-list__discount-number">¥' . number_format((float)$discount_price) . '</p>';
+                        ?>
                       </div>
                     </div>
-                  </a>
-                </li><!-- スライド1終わりここまで -->
-                <li class="campaign-swiper__slide campaign-list swiper-slide">
-                  <a  class="campaign-list__link" href="#">
-                    <figure class="campaign-list__image">
-                      <picture>
-                        <source srcset="<?php echo get_theme_file_uri(); ?>/assets/images/common/campaign2.webp" type="image/webp"/>
-                        <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/campaign2.jpg" alt="2隻のボートが船に浮いている様子"/>
-                      </picture>
-                    </figure>
-                    <div class="campaign-list__body">
-                        <span class="campaign-list__category">体験ダイビング</span>
-                        <h3 class="campaign-list__title">貸切体験ダイビング</h3>
-                        <p class="campaign-list__text">全部コミコミ(お一人様)</p>
-                      <div class="campaign-list__price">
-                          <p class="campaign-list__number">¥24,000</p>
-                          <p class="campaign-list__discount-number">¥18,000</p>
-                      </div>
-                    </div>
-                  </a>
-                </li><!-- スライド2終わりここまで -->
-                <li class="campaign-swiper__slide campaign-list swiper-slide">
-                  <a  class="campaign-list__link" href="#">
-                    <figure class="campaign-list__image">
-                      <picture>
-                        <source srcset="<?php echo get_theme_file_uri(); ?>/assets/images/common/campaign3.webp" type="image/webp"/>
-                        <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/campaign3.jpg" alt="深海で複数のクラゲが泳いでいる様子"/>
-                      </picture>
-                    </figure>
-                    <div class="campaign-list__body">
-                        <span class="campaign-list__category">体験ダイビング</span>
-                        <h3 class="campaign-list__title">ナイトダイビング</h3>
-                        <p class="campaign-list__text">全部コミコミ(お一人様)</p>
-                      <div class="campaign-list__price">
-                          <p class="campaign-list__number">¥10,000</p>
-                          <p class="campaign-list__discount-number">¥8,000</p>
-                      </div>
-                    </div>
-                  </a>
-                </li><!-- スライド3終わりここまで -->
-                <li class="campaign-swiper__slide campaign-list swiper-slide">
-                  <a  class="campaign-list__link" href="#">
-                    <figure class="campaign-list__image">
-                      <picture>
-                        <source srcset="<?php echo get_theme_file_uri(); ?>/assets/images/common/campaign4.webp" type="image/webp"/>
-                        <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/campaign4.jpg" alt="4人のダイバーが海で浮いている様子"/>
-                      </picture>
-                    </figure>
-                    <div class="campaign-list__body">
-                        <span class="campaign-list__category">ファンダイビング</span>
-                        <h3 class="campaign-list__title">貸切ファンダイビング</h3>
-                        <p class="campaign-list__text">全部コミコミ(お一人様)</p>
-                      <div class="campaign-list__price">
-                          <p class="campaign-list__number">¥20,000</p>
-                          <p class="campaign-list__discount-number">¥16,000</p>
-                      </div>
-                    </div>
-                  </a>
+                  </div>
                 </li>
-                <li class="campaign-swiper__slide campaign-list swiper-slide">
-                  <a  class="campaign-list__link" href="#">
-                    <figure class="campaign-list__image">
-                      <picture>
-                        <source srcset="<?php echo get_theme_file_uri(); ?>/assets/images/common/campaign4.webp" type="image/webp"/>
-                        <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/campaign4.jpg" alt="4人のダイバーが海で浮いている様子"/>
-                      </picture>
-                    </figure>
-                    <div class="campaign-list__body">
-                        <span class="campaign-list__category">ファンダイビング</span>
-                        <h3 class="campaign-list__title">貸切ファンダイビング</h3>
-                        <p class="campaign-list__text">全部コミコミ(お一人様)</p>
-                      <div class="campaign-list__price">
-                          <p class="campaign-list__number">¥20,000</p>
-                          <p class="campaign-list__discount-number">¥16,000</p>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-                <!-- swiper動作確認用のスライド追加 -->
+              <?php endwhile; ?>
+              <?php wp_reset_postdata(); ?>
+              <?php endif; ?>
+              <!-- swiper動作確認用のスライド追加 -->
               </ul>          
             </div>
           </div>
           <div class="campaign__btn">
-            <a href="./page-campaign.html" class="btn">
+            <a href="<?php echo get_post_type_archive_link('campaign'); ?>" class="btn">
               <span>view&nbsp;more</span><div class="btn__arrow"></div>
             </a>
           </div>
@@ -555,7 +439,3 @@
 </main>
 
 <?php get_footer(); ?>
-  
-  </main>
-  <?php get_footer(); ?>
-  

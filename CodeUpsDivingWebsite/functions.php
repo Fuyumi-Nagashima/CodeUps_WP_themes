@@ -138,14 +138,14 @@ SCF::add_options_page(
 	'dashicons-format-status',
 	11
 );
-SCF::add_options_page(
+/*SCF::add_options_page(
 	'MVスライダー',
 	'MVスライダー',
 	'manage_options',
 	'mv-option',
 	'dashicons-format-gallery',
 	11
-);
+);*/
 
 // Contact Form 7で自動挿入されるPタグ、brタグを削除
 add_filter('wpcf7_autop_or_not', 'wpcf7_autop_return_false');
