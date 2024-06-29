@@ -153,3 +153,25 @@ function wpcf7_autop_return_false()
 {
     return false;
 }
+
+
+ // サンクスページにリダイレクト
+function custom_cf7_redirect() {
+    ?>
+    <script type="text/javascript">
+        document.addEventListener('wpcf7mailsent', function(event) {
+            // デフォルトの送信完了メッセージを非表示にする
+            var form = event.target;
+            var responseOutput = form.querySelector('.wpcf7-response-output');
+            if (responseOutput) {
+                responseOutput.style.display = 'none';
+            }
+            // サンクスページにリダイレクト
+            window.location.href = 'http://codeupsdivingwordpresstheme.local/thanks/';
+        }, false);
+    </script>
+    <?php
+}
+add_action('wp_footer', 'custom_cf7_redirect');
+
+

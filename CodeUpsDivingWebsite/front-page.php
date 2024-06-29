@@ -13,7 +13,7 @@
                 if ($pc_images && $sp_images) :
                   for ($i = 1; $i <= 4; $i++) : 
                     $pc_image = $pc_images["mv_pc_0$i"];
-                    sp_image = $sp_images["mv_sp_0$i"];
+                    $sp_image = $sp_images["mv_sp_0$i"];
                     if ($pc_image && $sp_image) :
                       
                       // デバッグ用出力

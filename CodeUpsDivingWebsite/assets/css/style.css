@@ -1917,92 +1917,98 @@ a:hover {
 
 .form__btn-submit {
 	align-items: center;
-	background-color: #408F95;
+	background-color: #408F95; /* 初期背景色 */
+	border: none;
+	border: 1px solid #408F95;
 	color: #fff;
 	cursor: pointer;
 	display: inline-flex;
-	font-family: "Gotu", sans-serif;
-	font-size: 0.875rem;
-	font-weight: 400;
-	line-height: 1.5714285714;
-	margin-bottom: 0.25rem;
-	max-width: 12.625rem;
-	padding: 1rem 2.5rem;
+	font-size: 14px;
+	font-weight: bold;
+	justify-content: center;
+	line-height: 1.6;
+	max-width: 202px;
+	overflow: hidden; /* アニメーションのために必要 */
+	padding: 18px;
 	position: relative;
+	transition: color 0.4s ease-in-out;
 	width: 100%;
 	z-index: 1;
 }
 
-.form__btn-submit input {
+.form__btn-submit input[type=submit] {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background: none;
+	border: none;
 	color: #fff;
-}
-
-.form__btn-submit:hover input {
-	color: #408F95;
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: bold;
+	height: 100%;
+	position: relative;
+	width: 100%;
+	z-index: 2; /* ボタンのテキストを最前面に */
 }
 
 .form__btn-submit::before {
-	border: 1px solid #408F95;
+	background-color: #fff; /* ホバー時の背景色 */
 	content: "";
 	height: 100%;
-	position: absolute;
-	right: -4px;
-	top: 4px;
-	width: 100%;
-	z-index: -999;
-}
-
-.form__btn-submit span::first-letter {
-	text-transform: uppercase;
-}
-
-.form__btn-submit::after {
-	background: #fff;
-	border: 1px solid #408F95;
-	content: "";
-	height: 100%;
-	left: 0;
+	left: -100%; /* 初期位置をボタンの左外に */
 	position: absolute;
 	top: 0;
-	transform: scale(0, 1);
-	transform-origin: left top;
-	transition: 0.2s cubic-bezier(0.45, 0, 0.55, 1);
+	transition: left 0.4s ease-in-out;
 	width: 100%;
-	z-index: -10;
+	z-index: -1; /* ボタンテキストの後ろに配置 */
 }
 
-.form__btn-submit:hover::after {
-	transform: scale(1, 1);
+.form__btn-submit:hover::before {
+	color: #408F95;
+	left: 0; /* ホバー時に背景色がボタン全体を覆う */
 }
 
 .btn__arrow {
 	border-bottom: 1px solid #fff;
 	border-right: 1px solid #fff;
-	height: 0.375rem;
-	margin-left: 0.5rem;
+	height: 6px;
+	margin-left: 8px;
 	transform: skew(45deg);
-	width: 2.5rem;
-}
-
-.form__btn-submit:hover span {
-	color: #408F95;
+	transition: border-color 0.4s ease-in-out;
+	width: 40px;
+	z-index: 2; /* ボタンのテキストを最前面に */
 }
 
 .form__btn-submit:hover .btn__arrow {
-	border-bottom: 1px solid #408F95;
-	border-right: 1px solid #408F95;
-	height: 0.375rem;
-	margin-left: 0.5rem;
-	transform: skew(45deg);
-	width: 2.5rem;
+	border-color: #408F95; /* ホバー時の矢印の色 */
 }
 
 .form__btn {
-	margin-top: 1.5rem;
+	margin-top: 24px;
 	text-align: center;
 }
 
-/*.form__btn-submit input[type="submit"] {
+/*.form__btn-submit span::first-letter{
+    text-transform:uppercase;
+}*/
+
+/*.form__btn-submit::after{
+    background:$white;
+    border:1px solid $main-green;
+    position: absolute;
+    top: 0;
+    left: 0;  
+    content: '';
+    width: 100%;
+    height: 100%;
+    transform: scale(0, 1);
+    transform-origin: left top;
+    transition: .2s cubic-bezier(0.45, 0, 0.55, 1);
+    z-index: -10;
+}*/
+
+/*.wpcf7-form-control.wpcf7-submit {
     position: absolute;
     top: 0;
     left: 0;
@@ -2010,7 +2016,7 @@ a:hover {
     height: 100%;
     opacity: 0;
     cursor: pointer;
-    z-index: 2;
+    z-index: 2;  
 }*/
 
 .wpcf7-form-control.wpcf7-checkbox {
@@ -4046,10 +4052,6 @@ html {
 	top: 50%;
 }
 
-.form__btn {
-	margin-top: 2.5rem;
-}
-
 .fv__title-large {
 	font-size: 5rem;
 }
@@ -4503,6 +4505,14 @@ a.page.larger.u-desktop {
 
 .form__items {
 	padding-bottom: 2.5rem;
+}
+
+}
+
+@media (min-width: 768px) {
+
+.form__btn {
+	margin-top: 40px;
 }
 
 }
