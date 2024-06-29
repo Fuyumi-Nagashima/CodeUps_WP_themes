@@ -1,55 +1,20 @@
 <?php get_header(); ?>
 <main>
-      <section class="pagethanks-mv sub-mv">
-        <div class="sub-mv__page-header">
-          <h2 class="sub-mv__title">
-            <span>contact</span>
-          </h2>
-        </div>
-      </section>
-    <!-- パンくず -->
-    <nav class="breadcrumb">
-      <ol
-      class="breadcrumb__lists inner"
-      itemscope
-      itemtype="https://schema.org/BreadcrumbList"
-  >
-      <li
-      class="breadcrumb__list "
-      itemprop="itemListElement"
-      itemscope
-      itemtype="https://schema.org/ListItem"
-      >
-      <a class="breadcrumb__list-link" itemprop="item" href="index.html">
-          <span itemprop="name" class="breadcrumb__list-active">top</span>
-      </a>
-      <meta itemprop="position" content="1" />
-      </li>
-      <li
-      class="breadcrumb__list "
-      itemprop="itemListElement"
-      itemscope
-      itemtype="https://schema.org/ListItem"
-      >
-      <a class="breadcrumb__list-link" itemprop="item" href="#">
-          <span itemprop="name" class="breadcrumb__list-active">お問い合わせ</span>
-      </a>
-      <meta itemprop="position" content="2" />
-      </li>
-
-      <li
-      class="breadcrumb__list"
-      itemprop="itemListElement"
-      itemscope
-      itemtype="https://schema.org/ListItem"
-      >
-      <p class="breadcrumb__list-link" itemprop="item">
-          <span itemprop="name">送信完了</span>
-      </p>
-      <meta itemprop="position" content="3" />
-      </li>
-  </ol>
-  </nav>
+  <section class="pagethanks-mv sub-mv">
+    <div class="sub-mv__page-header">
+      <h2 class="sub-mv__title">
+        <span>contact</span>
+      </h2>
+    </div>
+  </section>
+  <!-- パンくず -->
+  <div class="breadcrumb">
+    <div class="breadcrumb__inner inner">
+      <?php if (function_exists('bcn_display')) {
+        bcn_display();
+        } 
+      ?>
+  </div>
   <!-- サンクスページ -->
   <section class="layout-page-thanks page-thanks">
     <div class="page-thanks__inner inner">

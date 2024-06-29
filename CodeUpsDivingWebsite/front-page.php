@@ -8,24 +8,30 @@
                 // ACFからPC用画像とSP用画像を取得
                 $pc_images = get_field('mv_img_pc');
                 $sp_images = get_field('mv_img_sp');
-                
+
                 // 画像が存在する場合、ループで表示
                 if ($pc_images && $sp_images) :
-                    for ($i = 1; $i <= 4; $i++) : 
-                        $pc_image = $pc_images["mv_pc_0$i"];
-                        $sp_image = $sp_images["mv_sp_0$i"];
-                        if ($pc_image && $sp_image) :
+                  for ($i = 1; $i <= 4; $i++) : 
+                    $pc_image = $pc_images["mv_pc_0$i"];
+                    sp_image = $sp_images["mv_sp_0$i"];
+                    if ($pc_image && $sp_image) :
+                      
+                      // デバッグ用出力
+                        echo '<pre>';
+                        var_dump($pc_images);
+                        var_dump($sp_images);
+                        echo '</pre>';
                 ?>
-                        <div class="swiper-slide fv__swiper-slide">
-                            <picture>
-                                <source srcset="<?php echo esc_url($sp_image['sizes']['medium_large']); ?>" media="(max-width:767px)" />
-                                <img src="<?php echo esc_url($pc_image['sizes']['large']); ?>" alt="<?php echo esc_attr($pc_image['alt']); ?>" decoding="async" loading="lazy" />
-                            </picture>
-                        </div>
+                <div class="swiper-slide fv__swiper-slide">
+                  <picture>
+                    <source srcset="<?php echo esc_url($sp_image['sizes']['medium_large']); ?>" media="(max-width:767px)" />
+                      <img src="<?php echo esc_url($pc_image['sizes']['large']); ?>" alt="<?php echo esc_attr($pc_image['alt']); ?>" decoding="async" loading="lazy" />
+                  </picture>
+                </div>
                 <?php 
-                        endif;
-                    endfor;
                 endif;
+                  endfor;
+                    endif;
                 ?>
             </div>
             <div class="fv__title-wrap">
@@ -35,9 +41,6 @@
         </div>
     </div>
 </div>
-
-
-
       <!-- campaign -->
       <section class="layout-campaign campaign">
         <div class="campaign__inner inner">
