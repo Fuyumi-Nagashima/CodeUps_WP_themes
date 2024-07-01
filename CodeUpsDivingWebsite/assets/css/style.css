@@ -1923,17 +1923,15 @@ a:hover {
 	align-items: center;
 	background-color: #408F95; /* 初期背景色 */
 	border: none;
-	border: 1px solid #408F95;
 	color: #fff;
 	cursor: pointer;
 	display: inline-flex;
 	font-size: 14px;
-	font-weight: bold;
+	font-weight: normal;
 	justify-content: center;
 	line-height: 1.6;
 	max-width: 202px;
 	overflow: hidden; /* アニメーションのために必要 */
-	padding: 18px;
 	position: relative;
 	transition: color 0.4s ease-in-out;
 	width: 100%;
@@ -1946,14 +1944,20 @@ a:hover {
 	appearance: none;
 	background: none;
 	border: none;
+	border: 1px solid #408F95;
 	color: #fff;
 	cursor: pointer;
-	font-size: 14px;
-	font-weight: bold;
+	font-size: 0.875rem;
+	font-weight: normal;
 	height: 100%;
+	padding: 1rem;
 	position: relative;
 	width: 100%;
 	z-index: 2; /* ボタンのテキストを最前面に */
+}
+
+.form__btn-submit:hover input.wpcf7-form-control.wpcf7-submit[value=Send] {
+	color: #408F95; /* ホバー時の文字色 */
 }
 
 .form__btn-submit::before {
@@ -4418,6 +4422,7 @@ html {
 }
 
 .two-column__main {
+	flex: 1; /* メインコンテンツをフレックスアイテムとして設定 */
 	width: 65%;
 }
 

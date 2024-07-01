@@ -174,7 +174,7 @@ function custom_cf7_redirect() {
 }
 add_action('wp_footer', 'custom_cf7_redirect');
 
-
+//footer.phpの中にあるContactセクションのmargin-topの余白を消すためのコード
 function add_custom_body_class($classes) {
     if (is_404()) {
         $classes[] = 'is-404';
@@ -183,5 +183,52 @@ function add_custom_body_class($classes) {
 }
 add_filter('body_class', 'add_custom_body_class');
 
+// 閲覧数をセットする関数
+function setPostViews($postID) {
+    $count_key = 'post_views_count';
+    $count = get_post_meta($postID, $count_key, true);
+    if ($count == '') {
+        $count = 0;
+        delete_post_meta($postID, $count_key);
+        add_post_meta($postID, $count_key, '0');
+    } else {
+        $count++;
+        update_post_meta($postID, $count_key, $count);
+    }
+}
 
+// カラムにビュー数を追加
+function add_views_column($columns) {
+    $columns['post_views'] = 'Views';
+    return $columns;
+}
+add_filter('manage_post_posts_columns', 'add_views_column');
 
+// ビュー数を表示
+function show_views_column($column_name, $postID) {
+    if ($column_name === 'post_views') {
+        $views = get_post_meta($postID, 'post_views_count', true);
+        echo $views ? $views : '0';
+    }
+}
+add_action('manage_posts_custom_column', 'show_views_column', 10, 2);
+
+// ビュー数のカラムをソート可能にする
+function column_views_sortable($columns) {
+    $columns['post_views'] = 'post_views_count';
+    return $columns;
+}
+add_filter('manage_edit-post_sortable_columns', 'column_views_sortable');
+
+// ソートクエリを処理
+function sort_views_column($query) {
+    if (!is_admin()) {
+        return;
+    }
+    $orderby = $query->get('orderby');
+    if ($orderby == 'post_views_count') {
+        $query->set('meta_key', 'post_views_count');
+        $query->set('orderby', 'meta_value_num');
+    }
+}
+add_action('pre_get_posts', 'sort_views_column');

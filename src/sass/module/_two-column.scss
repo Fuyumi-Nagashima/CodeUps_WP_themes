@@ -8,6 +8,7 @@
     width:100%;
     @include mq('md'){
         width:65%;
+        flex: 1; /* メインコンテンツをフレックスアイテムとして設定 */
     }  
 }
 .two-column__side{
