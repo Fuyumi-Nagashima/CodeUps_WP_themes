@@ -60,7 +60,9 @@
                         <?php endif; ?>
                     </div>
                 </div> <!-- two-column__main -->
-                <?php get_sidebar(); ?>
+                <aside class="two-column__side aside-wrapper">
+              <?php get_sidebar(); ?>
+              </aside>
             </div>
             <!--flex-->
         </div>

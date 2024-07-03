@@ -25,12 +25,6 @@
                     $pc_image = $pc_images["mv_pc_0$i"];
                     $sp_image = $sp_images["mv_sp_0$i"];
                     if ($pc_image && $sp_image) :
-                      
-                      // デバッグ用出力
-                        echo '<pre>';
-                        var_dump($pc_images);
-                        var_dump($sp_images);
-                        echo '</pre>';
                 ?>
                 <div class="swiper-slide fv__swiper-slide">
                   <picture>
@@ -83,7 +77,11 @@
                       <?php if (has_post_thumbnail()) : ?>
                         <?php the_post_thumbnail('full'); ?>
                         <?php else : ?>
-                          <img src="<?php echo esc_url(get_theme_file_uri("/assets/images/common/noimage.jpg")); ?>" alt="NoImage画像" loading="lazy">
+                          <?php
+                        $no_image_url = esc_url(get_theme_file_uri('/assets/images/common/noimage.jpg'));
+                        var_dump($no_image_url); // ここでURLを確認
+                        ?>
+                        <img src="<?php echo $no_image_url; ?>" alt="NoImage画像" loading="lazy">
                       <?php endif; ?>
                     </figure>
                     <div class="campaign-list__body campaign-list__body--subpage">

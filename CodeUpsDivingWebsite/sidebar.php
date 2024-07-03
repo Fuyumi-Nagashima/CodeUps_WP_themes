@@ -71,10 +71,14 @@
                         endif;
                         ?>
                     </p>
-                    <h3 class="aside-review__title"><?php the_field('title'); ?></h3>
+                    <h3 class="aside-review__title">
+                        <?php //ACFを使用しカスタムフィールドの値を表示するための関数で投稿に「title」というカスタムフィールドがあり、その値を表示するときの関数
+                        the_field('title'); 
+                        ?>
+                    </h3>
                 </div>
                 <div class="aside-review__btn">
-                    <a href="<?php the_permalink(); ?>" class="btn">
+                    <a href="<?php echo get_post_type_archive_link('voice'); ?>" class="btn">
                         <span>view&nbsp;more </span>
                         <div class="btn__arrow"></div>
                     </a>
@@ -92,49 +96,46 @@
         <div class="aside-wrapper__review aside-campaign">
             <h2 class="aside-wrapper__title"><span>キャンペーン</span></h2>
             <ul class="aside-campaign__wrapper aside-cards">
-                <li class="aside-cards__card aside-card">
-                    <a href="#">
-                        <figure class="aside-card__image">
-                            <picture>
-                                <source srcset="<?php echo get_theme_file_uri(); ?>/assets/images/common/campaign1.webp"
-                                    type="image/webp" />
-                                <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/campaign1.jpg"
-                                    alt="カラフルな魚が泳いでいる様子" />
-                            </picture>
-                        </figure>
-                        <div class="aside-card__body">
-                            <h3 class="aside-card__title">ライセンス取得</h3>
-                            <p class="aside-card__text">全部コミコミ(お一人様)</p>
-                            <div class="aside-card__price">
-                                <p class="aside-card__number">¥56,000</p>
-                                <p class="aside-card__discount-number">¥46,000</p>
-                            </div>
-                        </div>
-                    </a>
+            <?php
+              $args = array(
+                'post_type' => 'campaign', 
+                'orderby' => 'date',
+                'order' => 'DESC',
+                'posts_per_page' =>2
+                );
+                $the_query = new WP_Query( $args );
+                ?>
+                <?php if ($the_query->have_posts()): while ($the_query->have_posts()): $the_query->the_post(); ?>
+                <li class="aside-cards__card aside-card campaign-list" data-category="<?php echo get_the_terms(get_the_ID(), 'campaign_category')[0]->slug; ?>">
+                  <div class="campaign-list__link">
+                    <figure class="aside-card__image">
+                      <?php if (has_post_thumbnail()) : ?>
+                        <?php the_post_thumbnail('full'); ?>
+                        <?php else : ?>
+                          <img src="<?php echo esc_url(get_theme_file_uri("/assets/images/common/noimage.jpg")); ?>" alt="NoImage画像" loading="lazy">
+                      <?php endif; ?>
+                    </figure>
+                    <div class="aside-card__body">
+                      <h3 class="aside-card__title"><?php the_title(); ?></h3>
+                      <p class="aside-card__text">全部コミコミ(お一人様)</p>
+                      <div class="aside-card__price">
+                        <?php
+                        // SCFで追加したカスタムフィールドを取得
+                          $regular_price = SCF::get('regular_price');
+                          $discount_price = SCF::get('discount_price');
+                          echo '<p class="aside-card__number">¥' . number_format((float)$regular_price) . '</p>';
+                          echo '<p class="aside-card__discount-number">¥' . number_format((float)$discount_price) . '</p>';
+                        ?>
+                      </div>
+                    </div>
+                  </div>
                 </li>
-                <li class="aside-cards__card aside-card">
-                    <a href="#">
-                        <figure class="aside-card__image">
-                            <picture>
-                                <source srcset="<?php echo get_theme_file_uri(); ?>/assets/images/common/campaign2.webp"
-                                    type="image/webp" />
-                                <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/campaign2.jpg"
-                                    alt="2隻のボートが海の上で浮いている様子" />
-                            </picture>
-                        </figure>
-                        <div class="aside-card__body">
-                            <h3 class="aside-card__title">貸切体験ダイビング</h3>
-                            <p class="aside-card__text">全部コミコミ(お一人様)</p>
-                            <div class="aside-card__price">
-                                <p class="aside-card__number">¥24,000</p>
-                                <p class="aside-card__discount-number">¥18,000</p>
-                            </div>
-                        </div>
-                    </a>
-                </li>
+              <?php endwhile; ?>
+              <?php wp_reset_postdata(); ?>
+              <?php endif; ?>
             </ul>
             <div class="aside-campaign__btn">
-                <a href="./page-campaign.html" class="btn">
+                <a href="<?php echo get_post_type_archive_link('campaign'); ?>" class="btn">
                     <span>view&nbsp;more </span>
                     <div class="btn__arrow"></div>
                 </a>
