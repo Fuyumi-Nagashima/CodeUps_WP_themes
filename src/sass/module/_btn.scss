@@ -104,3 +104,21 @@
 .btn--white span::last-letter{
     text-transform: uppercase; /* 最後の文字を大文字にする */
 }
+.btn__arrow {
+    margin-left: 8px;
+    width: 40px;
+    height: 6px;
+    border-bottom: 1px solid #fff;
+    border-right: 1px solid #fff;
+    transform: skew(45deg);
+    z-index: 2; /* ボタンのテキストを最前面に */
+    transition: border-color 0.4s ease-in-out;
+}
+.btn__arrow--contact{
+    position: absolute;
+    margin-left: rem(17);
+    width:rem(40);
+    z-index: 2;
+    top: 46%;
+    left: 50%;
+}

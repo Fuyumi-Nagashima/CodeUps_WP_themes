@@ -52,14 +52,15 @@
                     </div>
                   </a>
                 <?php endwhile; endif; ?>
-                </div>
+                </div><!-- two-column__cards cards cards--2column -->
                 <div class="two-column__wp-pagenavi" >
                   <?php wp_pagenavi(); ?>
                 </div>
               </div><!-- two-column__main -->
+              <aside class="two-column__side aside-wrapper">
               <?php get_sidebar(); ?>
-            </div><!--two-column__flex-->
-        </div>
+              </aside>
+        </div><!--two-column__flex-->
       </div>
     </main>
 <?php get_footer(); ?>
