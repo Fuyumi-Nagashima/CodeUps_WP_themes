@@ -7,95 +7,86 @@
         </div>
       </section>
     <!-- パンくず -->
-    <nav class="breadcrumb">
-      <ol
-      class="breadcrumb__lists inner"
-      itemscope
-      itemtype="https://schema.org/BreadcrumbList"
-  >
-      <li
-      class="breadcrumb__list "
-      itemprop="itemListElement"
-      itemscope
-      itemtype="https://schema.org/ListItem"
-      >
-      <a class="breadcrumb__list-link" itemprop="item" href="index.html">
-          <span itemprop="name" class="breadcrumb__list-active">top</span>
-      </a>
-      <meta itemprop="position" content="1" />
-      </li>
-
-      <li
-      class="breadcrumb__list"
-      itemprop="itemListElement"
-      itemscope
-      itemtype="https://schema.org/ListItem"
-      >
-      <p class="breadcrumb__list-link" itemprop="item">
-          <span itemprop="name">サイトマップ</span>
-      </p>
-      <meta itemprop="position" content="2" />
-      </li>
-  </ol>
-  </nav>
+    <div class="breadcrumb">
+      <div class="breadcrumb__inner inner">
+        <?php if ( function_exists('bcn_display') ) {
+          bcn_display();
+        } ?>
+      </div>
+    </div>
   <!-- サイトマップ -->
+  <?php 
+  $campaign = esc_url( home_url('/campaign/'));
+  $aboutus = esc_url( home_url('/aboutus/'));
+  $information = esc_url( home_url('/information/'));
+  $blog = esc_url( home_url('/blog/'));
+  $voice = esc_url( home_url('/voice/'));
+  $price = esc_url( home_url('/price/'));
+  $faq = esc_url( home_url('/faq/'));
+  $contact = esc_url( home_url('/contact/'));
+  $terms_of_service = esc_url( home_url('/terms-of-service/'));
+  $privacy_policy = esc_url( home_url('/privacypolicy/'));
+  $campaign_category_license = esc_url(home_url("/campaign_category/license"));
+  $campaign_category_experience = esc_url(home_url("/campaign_category/experience"));
+  $campaign_category_fundiving = esc_url(home_url("/campaign_category/fundiving"));
+  ?>
   <div class="layout-site-map sitemap">
     <div class="sitemap__inner inner">
       <div class="sitemap__nav sitemap-nav footer-nav">
         <div class="sitemap-nav__content footer-nav__content">
           <div class="footer-nav__items item01">
             <div class="footer-nav__item">
-              <a href="./page-campaign.html" class="sitemap-nav__heading footer-nav__heading"><span>キャンペーン</span></a>
+              <a href="<?php echo $campaign; ?>" class="sitemap-nav__heading footer-nav__heading"><span>キャンペーン</span></a>
               <ul class="sitemap-nav__list footer-nav__list">
-                <li><a href="#">ライセンス取得</a></li>
-                <li><a href="#">貸切体験ダイビング</a></li>
-                <li><a href="#">ナイトダイビング</a></li>
+                <li><a href="<?php echo $campaign_category_license; ?>">ライセンス取得</a></li>
+                <li><a href="<?php echo $campaign_category_experience; ?>">貸切体験ダイビング</a></li>
+                <li><a href="<?php echo $campaign_category_fundiving; ?>">ファンダイビング</a></li>
               </ul>
             </div>
             <div class="footer-nav__item">
-              <p class="sitemap-nav__heading footer-nav__heading"><a href="./page-about.html">私たちについて</a></p>
+              <p class="sitemap-nav__heading footer-nav__heading"><a href="<?php echo $aboutus; ?>">私たちについて</a></p>
             </div>
           </div>
 
           <div class="footer-nav__items item02">
             <div class="footer-nav__item">
-              <a href="./page-information.html" class="sitemap-nav__heading footer-nav__heading">ダイビング情報</a>
+              <a href="<?php echo $information; ?>" class="sitemap-nav__heading footer-nav__heading">ダイビング情報</a>
               <ul class="sitemap-nav__list footer-nav__list">
-                <li><a href="page-information.html#tab1">ライセンス講習</a></li>
-                <li><a href="page-information.html#tab3">体験ダイビング</a></li>
-                <li><a href="page-information.html#tab2">ファンダイビング</a></li>
+              <li><a href="<?php echo $information; ?>?id=tab1">ライセンス講習</a></li>
+              <li><a href="<?php echo $information; ?>?id=tab3">体験ダイビング</a></li>
+              <li><a href="<?php echo $information; ?>?id=tab2">ファンダイビング</a></li>
               </ul>
             </div>
             <div class="footer-nav__item">
-              <p class="sitemap-nav__heading footer-nav__heading"><a href="./home.html">ブログ</a></p>
+              <p class="sitemap-nav__heading footer-nav__heading"><a href="<?php echo $blog; ?>">ブログ</a></p>
             </div>
           </div>
 
           <div class="footer-nav__items item03">
             <div class="footer-nav__item">
-              <p class="sitemap-nav__heading footer-nav__heading"><a href="./page-voice.html">お客様の声</a></p>
+              <p class="sitemap-nav__heading footer-nav__heading"><a href="<?php echo $voice; ?>">お客様の声</a></p>
             </div>
             <div class="footer-nav__item">
-              <a href="./page-price.html" class="sitemap-nav__heading footer-nav__heading">料金一覧</a>
+              <a href="<?php echo $price; ?>" class="sitemap-nav__heading footer-nav__heading">料金一覧</a>
               <ul class="sitemap-nav__list footer-nav__list">
-                <li><a href="#">ライセンス講習</a></li>
-                <li><a href="#">体験ダイビング</a></li>
-                <li><a href="#">ファンダイビング</a></li>
+                <li><a href="<?php echo $price; ?>">ライセンス講習</a></li>
+                <li><a href="<?php echo $price; ?>#">体験ダイビング</a></li>
+                <li><a href="<?php echo $price; ?>">ファンダイビング</a></li>
               </ul>
             </div>
           </div>
           <div class="footer-nav__items item04">
             <div class="footer-nav__item">
-              <p class="sitemap-nav__heading footer-nav__heading"><a href="./page-faq.html">よくある質問</a></p>
+              <p class="sitemap-nav__heading footer-nav__heading"><a href="<?php echo $faq; ?>">よくある質問</a></p>
             </div>
             <div class="footer-nav__item">
-              <p class="sitemap-nav__heading footer-nav__heading"><a href="./page-privacy-policy.html">プライバシー<br class="u-mobile">ポリシー</a></p>
+              <p class="sitemap-nav__heading footer-nav__heading"><a href="<?php echo $privacy_policy; ?>">プライバシー<br class="u-mobile">ポリシー</a></p>
             </div>
             <div class="footer-nav__item">
-              <p class="sitemap-nav__heading footer-nav__heading"><a href="./page-terms-of-service.html">利用規約</a></p>
+              <p class="sitemap-nav__heading footer-nav__heading"><a href="<?php echo $terms_of_service; ?>">利用規約</a></p>
             </div>
             <div class="footer-nav__item">
-              <p class="sitemap-nav__heading footer-nav__heading"><a href="#">お問い合わせ</a></p>
+              <p class="sitemap-nav__heading footer-nav__heading"><a href="<?php echo $contact; ?>">お問い合わせ</a></p>
             </div>
           </div>
         </div>
