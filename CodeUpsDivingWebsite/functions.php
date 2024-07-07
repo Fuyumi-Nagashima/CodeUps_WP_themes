@@ -154,7 +154,6 @@ function wpcf7_autop_return_false()
     return false;
 }
 
-
  // サンクスページにリダイレクト
 function custom_cf7_redirect() {
     ?>
@@ -182,6 +181,7 @@ function add_custom_body_class($classes) {
     return $classes;
 }
 add_filter('body_class', 'add_custom_body_class');
+
 
 // 閲覧数をセットする関数
 function setPostViews($postID) {
@@ -256,3 +256,108 @@ function custom_archive_title($title) {
 }
 add_filter('get_the_archive_title', 'custom_archive_title');
 
+function Change_menulabel() {
+    global $menu;
+    global $submenu;
+    $name = 'ブログ';
+    $menu[5][0] = $name;
+    $submenu['edit.php'][5][0] = $name.'一覧';
+    $submenu['edit.php'][10][0] = '新しい'.$name;
+    }
+    function Change_objectlabel() {
+    global $wp_post_types;
+    $name = 'ブログ';
+    $labels = &$wp_post_types['post']->labels;
+    $labels->name = $name;
+    $labels->singular_name = $name;
+    $labels->add_new = _x('追加', $name);
+    $labels->add_new_item = $name.'の新規追加';
+    $labels->edit_item = $name.'の編集';
+    $labels->new_item = '新規'.$name;
+    $labels->view_item = $name.'を表示';
+    $labels->search_items = $name.'を検索';
+    $labels->not_found = $name.'が見つかりませんでした';
+    $labels->not_found_in_trash = 'ゴミ箱に'.$name.'は見つかりませんでした';
+    }
+    add_action( 'init', 'Change_objectlabel' );
+    add_action( 'admin_menu', 'Change_menulabel' );
+
+
+
+
+    // add_filter( 'show_admin_bar', '__return_false' );
+
+    function custom_cf7_form_tag($tag) {
+        if ($tag['name'] != 'campaign-select') {
+            return $tag;
+        }
+    
+        $args = array(
+            'post_type'      => 'campaign',
+            'posts_per_page' => -1,
+            'orderby'        => 'date',
+            'order'          => 'DESC'
+        );
+    
+        $query = new WP_Query($args);
+        $options = array();
+    
+        if ($query->have_posts()) {
+            while ($query->have_posts()) {
+                $query->the_post();
+                $options[] = array('value' => get_the_title(), 'label' => get_the_title());
+            }
+            wp_reset_postdata();
+        }
+    
+        // Create dropdown options
+        $tag['raw_values'] = array_map(function($option) {
+            return $option['value'];
+        }, $options);
+    
+        $tag['values'] = $tag['raw_values'];
+        $tag['labels'] = $tag['values'];
+    
+        return $tag;
+    }
+    add_filter('wpcf7_form_tag', 'custom_cf7_form_tag', 10, 2);
+
+/*================================================================
+    管理画面の投稿一覧にアイキャッチ画像を表示
+================================================================ */
+// アイキャッチ画像をサポート
+function my_theme_setup() {
+    add_theme_support('post-thumbnails'); // すべての投稿とページにアイキャッチ画像を追加
+    add_post_type_support('post', 'thumbnail'); // 標準投稿タイプにアイキャッチ画像のサポートを追加
+  }
+  add_action('after_setup_theme', 'my_theme_setup');
+  
+  // 投稿リストにアイキャッチ画像のカラムを追加
+  function add_thumbnail_column($columns) {
+    $columns['thumbnail'] = 'Featured Image';
+    return $columns;
+  }
+  add_filter('manage_post_posts_columns', 'add_thumbnail_column');
+  
+
+  // アイキャッチ画像をカラムに表示
+  function display_thumbnail_column($column, $post_id) {
+    if ($column == 'thumbnail') {
+        $post_thumbnail_id = get_post_thumbnail_id($post_id);
+        if ($post_thumbnail_id) {
+            $post_thumbnail_img = wp_get_attachment_image_src($post_thumbnail_id, 'medium');
+            echo '<img src="' . esc_url($post_thumbnail_img[0]) . '" width="120" height="110" />';
+        } else {
+            echo '—';
+        }
+    }
+  }
+  add_action('manage_post_posts_custom_column', 'display_thumbnail_column', 10, 2);
+  
+  // カスタム投稿タイプ 'campaign' にアイキャッチ画像のカラムを追加
+  add_filter('manage_campaign_posts_columns', 'add_thumbnail_column');
+  add_action('manage_campaign_posts_custom_column', 'display_thumbnail_column', 10, 2);
+  
+  // カスタム投稿タイプ 'voice' にアイキャッチ画像のカラムを追加
+  add_filter('manage_voice_posts_columns', 'add_thumbnail_column');
+  add_action('manage_voice_posts_custom_column', 'display_thumbnail_column', 10, 2);

@@ -2,13 +2,21 @@
 .breadcrumb{
     margin-top: rem(8);
 }
+.breadcrumb.breadcrumb--404{
+    color:$white;
+    margin-top:rem(80);
+    background-color: #408F95;
+    @include mq('md'){
+    margin-top:rem(90);
+    }
+}
+
 .breadcrumb span {
-    font-size: rem(16);
-    margin-right: rem(8);
+    font-size:rem(14);
     display: inline-block;
 }
 .breadcrumb span:not(:first-child) {
-    margin-left: rem(8);
+    // margin-left: rem(8);
 }
 /*.breadcrumb .current-item {
     color: #DE8430;

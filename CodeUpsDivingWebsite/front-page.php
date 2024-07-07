@@ -48,31 +48,34 @@
         </div>
     </div>
     <!-- campaign -->
-    <section class="layout-campaign campaign">
-        <div class="campaign__inner inner">
-            <div class="campaign__section-title section-title">
-                <p class="section-title__primary">campaign</p>
-                <h2 class="section-title__sub">キャンペーン</h2>
-            </div>
-            <!-- ボタン -->
-            <div class="campaign__btn-wrap">
-                <div class="swiper-button-prev campaign__prev  js-campaign-arrow"></div>
-                <div class="swiper-button-next campaign__next  js-campaign-arrow"></div>
-            </div>
-            <!-- スライド-->
-            <div class="campaign__swiper campaign-swiper">
-                <div class="swiper js-campaign-swiper">
-                    <ul class="swiper-wrapper campaign-swiper__wrapper ">
-                        <?php
-              $args = array(
-                'post_type' => 'campaign', 
-                'orderby' => 'date',
-                'order' => 'DESC',
-                'posts_per_page' => -1 
-                );
-                $the_query = new WP_Query( $args );
-                ?>
-                        <?php if ($the_query->have_posts()): while ($the_query->have_posts()): $the_query->the_post(); ?>
+    <!-- campaign -->
+<!-- campaign -->
+<section class="layout-campaign campaign">
+    <div class="campaign__inner inner">
+        <div class="campaign__section-title section-title">
+            <p class="section-title__primary">campaign</p>
+            <h2 class="section-title__sub">キャンペーン</h2>
+        </div>
+        <!-- ボタン -->
+        <div class="campaign__btn-wrap">
+            <div class="swiper-button-prev campaign__prev js-campaign-arrow"></div>
+            <div class="swiper-button-next campaign__next js-campaign-arrow"></div>
+        </div>
+        <!-- スライド-->
+        <div class="campaign__swiper campaign-swiper">
+            <div class="swiper js-campaign-swiper">
+                <ul class="swiper-wrapper campaign-swiper__wrapper ">
+                    <?php
+                    $args = array(
+                        'post_type' => 'campaign',
+                        'orderby' => 'date',
+                        'order' => 'DESC',
+                        'posts_per_page' => -1
+                    );
+                    $the_query = new WP_Query($args);
+                    ?>
+                    <?php if ($the_query->have_posts()): ?>
+                        <?php while ($the_query->have_posts()): $the_query->the_post(); ?>
                         <li class="swiper-slide campaign-swiper__slide page-campaign__card campaign-list"
                             data-category="<?php echo get_the_terms(get_the_ID(), 'campaign_category')[0]->slug; ?>">
                             <div class="campaign-list__link">
@@ -87,41 +90,48 @@
                                 <div class="campaign-list__body campaign-list__body--subpage">
                                     <span class="campaign-list__category">
                                         <?php
-                          $taxonomy_terms = get_the_terms(get_the_ID(), 'campaign_category');
-                          if (!empty($taxonomy_terms)) {
-                          foreach ($taxonomy_terms as $taxonomy_term) {
-                          echo '<span>' . esc_html($taxonomy_term->name) . '</span>';
-                          }
-                          }
-                        ?>
+                                        $taxonomy_terms = get_the_terms(get_the_ID(), 'campaign_category');
+                                        if (!empty($taxonomy_terms)) {
+                                            foreach ($taxonomy_terms as $taxonomy_term) {
+                                                echo '<span>' . esc_html($taxonomy_term->name) . '</span>';
+                                            }
+                                        }
+                                        ?>
                                     </span>
                                     <h3 class="campaign-list__title "><?php the_title(); ?></h3>
                                     <p class="campaign-list__text campaign-list__text--subpage">全部コミコミ(お一人様)</p>
                                     <div class="campaign-list__price">
                                         <?php
-                        // SCFで追加したカスタムフィールドを取得
-                          $regular_price = SCF::get('regular_price');
-                          $discount_price = SCF::get('discount_price');
-                          echo '<p class="campaign-list__number">¥' . number_format((float)$regular_price) . '</p>';
-                          echo '<p class="campaign-list__discount-number">¥' . number_format((float)$discount_price) . '</p>';
-                        ?>
+                                        // SCFで追加したカスタムフィールドを取得
+                                        $regular_price = SCF::get('regular_price');
+                                        $discount_price = SCF::get('discount_price');
+                                        echo '<p class="campaign-list__number">¥' . number_format((float)$regular_price) . '</p>';
+                                        echo '<p class="campaign-list__discount-number">¥' . number_format((float)$discount_price) . '</p>';
+                                        ?>
                                     </div>
                                 </div>
                             </div>
                         </li>
                         <?php endwhile; ?>
                         <?php wp_reset_postdata(); ?>
-                        <?php endif; ?>
-                    </ul>
-                </div>
-            </div>
-            <div class="campaign__btn">
-                <a href="<?php echo get_post_type_archive_link('campaign'); ?>" class="btn">
-                    <span>view&nbsp;more</span>
-                    <div class="btn__arrow"></div>
-                </a>
+                        <!-- view more ボタン -->
+                        <div class="campaign__btn">
+                            <a href="<?php echo get_post_type_archive_link('campaign'); ?>" class="btn">
+                                <span>view&nbsp;more</span>
+                                <div class="btn__arrow"></div>
+                            </a>
+                        </div>
+                    <?php else: ?>
+                        <div class="campaign__no-posts no-posts">
+                <p class="no-posts__text">投稿がありません。</p>
+              </div>
+                    <?php endif; ?>
+                </ul>
             </div>
         </div>
+    </div>
+</section>
+
     </section>
     <!-- About us -->
     <section class="layout-about about">
