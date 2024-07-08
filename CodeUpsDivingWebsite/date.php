@@ -27,19 +27,19 @@
                         <a href="<?php the_permalink(); ?>" class="cards__item card">
                             <figure class="card__image">
                                 <?php 
-                    if(has_post_thumbnail()){
-                      the_post_thumbnail('full');
-                    }else{
-                      // 投稿の本文を取得
-                      $content = get_the_content();
-                      // 本文から最初の画像を抽出
-                      preg_match('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $content, $matches);
-                      // 画像があれば表示
-                      if (!empty($matches)) {
-                        echo $matches[0];
-                      }
-                    }
-                    ?>
+                                if(has_post_thumbnail()){
+                                    the_post_thumbnail('full');
+                                }else{
+                                // 投稿の本文を取得
+                                $content = get_the_content();
+                                // 本文から最初の画像を抽出
+                                preg_match('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $content, $matches);
+                                // 画像があれば表示
+                                if (!empty($matches)) {
+                                    echo $matches[0];
+                                }
+                                }
+                                ?>
                             </figure>
                             <div class="card__body">
                                 <div class="card__meta">
@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="card__text-body">
                                     <p class="card__text">
-                                        ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。<br>ここにテキストが入ります。ここにテキストが入ります。ここにテキスト
+                                    <?php echo wp_trim_words(get_the_content(), 90, '[...続きを読む]'); ?>
                                     </p>
                                 </div>
                             </div>
@@ -63,7 +63,8 @@
                 <aside class="two-column__side aside-wrapper">
                     <?php get_sidebar(); ?>
                 </aside>
-            </div><!--two-column__flex-->
+            </div>
+            <!--two-column__flex-->
         </div>
 </main>
 <?php get_footer(); ?>

@@ -149,13 +149,13 @@ jQuery(function ($) {
   $('.asideblog-list__year').click(function () {
     $(this).next('ul').slideToggle();
   });
-  /*//子要素のクリックイベント
+  //子要素のクリックイベント
   $('.menu-subtitle').click(function () {
     $(this).children('ul').slideToggle();
   });
   $('.asideblog-list__month').click(function () {
     $(this).children('ul').slideToggle();
-  });*/
+  });
   //最初の年数の矢印を開いた状態にする
   $(".asideblog-lists__list:first-of-type .asideblog-list__year").addClass("open");
   //年代をクリックしたら中身が出たり隠れたりする

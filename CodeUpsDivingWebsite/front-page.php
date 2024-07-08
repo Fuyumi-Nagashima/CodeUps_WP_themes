@@ -113,7 +113,7 @@
                             </div>
                         </li>
                         <?php endwhile; ?>
-                        <?php wp_reset_postdata(); ?>
+                        </ul>
                         <!-- view more ボタン -->
                         <div class="campaign__btn">
                             <a href="<?php echo get_post_type_archive_link('campaign'); ?>" class="btn">
@@ -125,8 +125,8 @@
                         <div class="campaign__no-posts no-posts">
                 <p class="no-posts__text">投稿がありません。</p>
               </div>
-                    <?php endif; ?>
-                </ul>
+                    <?php endif; wp_reset_postdata();?>
+             
             </div>
         </div>
     </div>

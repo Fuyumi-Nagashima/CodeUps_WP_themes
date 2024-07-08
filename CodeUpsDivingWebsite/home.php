@@ -46,7 +46,7 @@
                       </div>
                       <div class="card__text-body">
                         <p class="card__text">
-                          ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。<br>ここにテキストが入ります。ここにテキストが入ります。ここにテキスト
+                          <?php echo wp_trim_words(get_the_content(), 90, '…'); ?>
                         </p>
                       </div>
                     </div>

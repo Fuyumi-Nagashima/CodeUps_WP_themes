@@ -66,7 +66,7 @@ add_action('pre_get_posts', 'set_custom_post_type_posts_per_page');
 
 
 //WordPressの投稿の抜粋（excerpt）に表示される「続きを読む」リンクをカスタマイズするた
-function twpp_change_excerpt_more( $more ) {
+/*function twpp_change_excerpt_more( $more ) {
 	$html = '<a href="' . esc_url( get_permalink() ) . '">[...続きを読む]</a>';
 	return $html;
 }
@@ -75,7 +75,7 @@ add_filter( 'excerpt_more', 'twpp_change_excerpt_more' );
 function twpp_change_excerpt_length( $length ) {
     return 100; // 抜粋の文字数を100ワードに設定
 }
-add_filter( 'excerpt_length', 'twpp_change_excerpt_length', 999 );
+add_filter( 'excerpt_length', 'twpp_change_excerpt_length', 999 );*/
 
 
 //管理画面の投稿画面で本文入力部分を非表示にする
