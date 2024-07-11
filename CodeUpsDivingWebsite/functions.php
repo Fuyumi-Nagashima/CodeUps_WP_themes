@@ -361,3 +361,70 @@ function my_theme_setup() {
   // カスタム投稿タイプ 'voice' にアイキャッチ画像のカラムを追加
   add_filter('manage_voice_posts_columns', 'add_thumbnail_column');
   add_action('manage_voice_posts_custom_column', 'display_thumbnail_column', 10, 2);
+
+
+/*================================================================
+    ダッシュボードにウィジェットを追加する
+================================================================ */
+function custom_admin_enqueue(){
+    wp_enqueue_style( 'custom_admin_enqueue', get_stylesheet_directory_uri(). '/assets/css/my-widgets.css' );
+}
+add_action( 'admin_enqueue_scripts', 'custom_admin_enqueue' );
+
+// 投稿と編集ページに移動できるウィジェットを表示する関数
+function add_custom_widget() {
+    $html = ''; // 変数を初期化
+    $html .= '<div class="admin_panel">';
+    $html .= '<p>クリックすると投稿と編集ページに移動します</p>';
+    $html .= '<div class="widget-icons">';
+    $html .= '<a href="edit.php"><div class="widget-icon"><span class="dashicons dashicons-admin-post"></span><p>『ブログ』投稿</p></div></a>';
+    $html .= '<a href="edit.php?post_type=campaign"><div class="widget-icon"><span class="dashicons dashicons-clock"></span><p>『キャンペーン』投稿</p></div></a>';
+    $html .= '<a href="edit.php?post_type=voice"><div class="widget-icon"><span class="dashicons dashicons-smiley"></span><p>『お客様の声』投稿</p></div></a>';
+    $html .= '<a href="post.php?page=faq-option"><div class="widget-icon"><span class="dashicons dashicons-editor-help"></span><p>『よくある質問』編集</p></div></a>';
+    $html .= '</div>'; // divタグを閉じる
+    $html .= '</div>'; // divタグを閉じる
+    echo $html;
+  }
+  
+  // 基本設定リンクを表示するウィジェットを追加する関数
+  function add_basic_settings_widget() {
+    $html = ''; // 変数を初期化
+    $html .= '<div class="admin_panel basic_settings_widget">';
+    $html .= '<p>クリックすると設定ページに移動します</p>';
+    $html .= '<ul class="widget-links">';
+    $html .= '<li><a href="post.php?post=19&action=edit"><div class="widget-icon"><span class="dashicons dashicons-admin-generic"></span><p>【プライバシーポリシー】設定へ</p></div></a></li>';
+    $html .= '<li><a href="post.php?post=21&action=edit"><div class="widget-icon"><span class="dashicons dashicons-admin-generic"></span><p>【利用規約】設定へ</p></div></a></li>';
+    $html .= '</ul>'; // ulタグを閉じる
+    $html .= '</div>'; // divタグを閉じる
+    echo $html;
+  }
+  
+//②自作した情報をダッシュボードのウィジェットに登録する関数
+function add_my_widget() {
+	wp_add_dashboard_widget('custom_widget', '各種投稿', 'add_custom_widget');
+    wp_add_dashboard_widget('basic_settings_widget', 'サイト設定', 'add_basic_settings_widget');
+}
+//③ダッシュボードのウィジェット設定読み込み時に②の処理を呼び出す
+add_action('wp_dashboard_setup', 'add_my_widget');
+
+// カスタムスタイルを追加する関数
+function custom_dashboard_styles() {
+    wp_enqueue_style('custom_dashboard_css', get_template_directory_uri() . '/custom-dashboard.css');
+  }
+
+  add_action('admin_enqueue_scripts', 'custom_dashboard_styles');
+
+//ダッシュボードの不要なコンテンツを削除
+function remove_dashboard_widget() {
+	//ようこそ
+	remove_action( 'welcome_panel','wp_welcome_panel' );
+	//概要
+ 	remove_meta_box( 'dashboard_right_now', 'dashboard', 'normal' );
+ 	//アクティビティ
+ 	remove_meta_box( 'dashboard_activity', 'dashboard', 'normal' );
+ 	//クイックドラフト
+ 	remove_meta_box( 'dashboard_quick_press', 'dashboard', 'side' );
+ 	//WordPressイベントとニュース
+ 	remove_meta_box( 'dashboard_primary', 'dashboard', 'side' );
+} 
+add_action('wp_dashboard_setup', 'remove_dashboard_widget' );
