@@ -44,7 +44,7 @@
           ];
 
           foreach ($plans as $plan_id => $plan) :
-            if (!empty($plan['title'])) :
+            if  (!empty($plan['title']) && !empty($plan['courses'])):
         ?>
         <div class="sub-price-list__container">
           <div class="sub-price-list__title-wrap">

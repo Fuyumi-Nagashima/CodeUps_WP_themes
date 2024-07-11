@@ -47,8 +47,6 @@
             </div>
         </div>
     </div>
-    <!-- campaign -->
-    <!-- campaign -->
 <!-- campaign -->
 <section class="layout-campaign campaign">
     <div class="campaign__inner inner">
@@ -63,72 +61,80 @@
         </div>
         <!-- スライド-->
         <div class="campaign__swiper campaign-swiper">
-            <div class="swiper js-campaign-swiper">
-                <ul class="swiper-wrapper campaign-swiper__wrapper ">
-                    <?php
-                    $args = array(
-                        'post_type' => 'campaign',
-                        'orderby' => 'date',
-                        'order' => 'DESC',
-                        'posts_per_page' => -1
-                    );
-                    $the_query = new WP_Query($args);
-                    ?>
-                    <?php if ($the_query->have_posts()): ?>
-                        <?php while ($the_query->have_posts()): $the_query->the_post(); ?>
-                        <li class="swiper-slide campaign-swiper__slide page-campaign__card campaign-list"
-                            data-category="<?php echo get_the_terms(get_the_ID(), 'campaign_category')[0]->slug; ?>">
-                            <div class="campaign-list__link">
-                                <figure class="campaign-list__image campaign-list__image--sub-page">
-                                    <?php if (has_post_thumbnail()) : ?>
+    <div class="swiper js-campaign-swiper">
+        <ul class="swiper-wrapper campaign-swiper__wrapper">
+            <?php
+            $args = array(
+                'post_type' => 'campaign',
+                'orderby' => 'date',
+                'order' => 'DESC',
+                'posts_per_page' => -1
+            );
+            $the_query = new WP_Query($args);
+            ?>
+            <?php if ($the_query->have_posts()): ?>
+                <?php while ($the_query->have_posts()): $the_query->the_post(); ?>
+                <li class="swiper-slide campaign-swiper__slide page-campaign__card campaign-list"
+                    data-category="<?php echo get_the_terms(get_the_ID(), 'campaign_category')[0]->slug; ?>">
+                    <div class="campaign-list__link">
+                        <figure class="campaign-list__image campaign-list__image--sub-page">
+                            <picture>
+                                <?php if (has_post_thumbnail()) : ?>
                                     <?php the_post_thumbnail('full'); ?>
-                                    <?php else : ?>
-                                    <img src="<?php echo esc_url(get_theme_file_uri('/assets/images/common/noimage.jpg')); ?>"
-                                        alt="NoImage画像" loading="lazy">
-                                    <?php endif; ?>
-                                </figure>
-                                <div class="campaign-list__body campaign-list__body--subpage">
-                                    <span class="campaign-list__category">
-                                        <?php
-                                        $taxonomy_terms = get_the_terms(get_the_ID(), 'campaign_category');
-                                        if (!empty($taxonomy_terms)) {
-                                            foreach ($taxonomy_terms as $taxonomy_term) {
-                                                echo '<span>' . esc_html($taxonomy_term->name) . '</span>';
-                                            }
-                                        }
-                                        ?>
-                                    </span>
-                                    <h3 class="campaign-list__title "><?php the_title(); ?></h3>
-                                    <p class="campaign-list__text campaign-list__text--subpage">全部コミコミ(お一人様)</p>
-                                    <div class="campaign-list__price">
-                                        <?php
-                                        // SCFで追加したカスタムフィールドを取得
-                                        $regular_price = SCF::get('regular_price');
-                                        $discount_price = SCF::get('discount_price');
-                                        echo '<p class="campaign-list__number">¥' . number_format((float)$regular_price) . '</p>';
-                                        echo '<p class="campaign-list__discount-number">¥' . number_format((float)$discount_price) . '</p>';
-                                        ?>
-                                    </div>
-                                </div>
+                                <?php else : ?>
+                                    <img src="<?php echo esc_url(get_theme_file_uri('/assets/images/common/noimage.jpg')); ?>" alt="NoImage画像" loading="lazy">
+                                <?php endif; ?>
+                            </picture>
+                        </figure>
+                        <div class="campaign-list__body campaign-list__body--subpage">
+                            <span class="campaign-list__category">
+                                <?php
+                                $taxonomy_terms = get_the_terms(get_the_ID(), 'campaign_category');
+                                if (!empty($taxonomy_terms)) {
+                                    foreach ($taxonomy_terms as $taxonomy_term) {
+                                        echo '<span>' . esc_html($taxonomy_term->name) . '</span>';
+                                    }
+                                }
+                                ?>
+                            </span>
+                            <h3 class="campaign-list__title "><?php the_title(); ?></h3>
+                            <p class="campaign-list__text campaign-list__text--subpage">全部コミコミ(お一人様)</p>
+                            <div class="campaign-list__price">
+                                <?php
+                                // ACFで追加したカスタムフィールドを取得
+                                $price_group = get_field('campaign_price-group');
+                                if ($price_group) {
+                                    $price_before = !empty($price_group['price_before']) ? $price_group['price_before'] : '';
+                                    $price_after = !empty($price_group['price_after']) ? $price_group['price_after'] : '';
+                                    if ($price_before) {
+                                        echo '<p class="campaign-list__number">¥' . number_format((float)$price_before) . '</p>';
+                                    }
+                                    if ($price_after) {
+                                        echo '<p class="campaign-list__discount-number">¥' . number_format((float)$price_after) . '</p>';
+                                    }
+                                }
+                                ?>
                             </div>
-                        </li>
-                        <?php endwhile; ?>
-                        </ul>
-                        <!-- view more ボタン -->
-                        <div class="campaign__btn">
-                            <a href="<?php echo get_post_type_archive_link('campaign'); ?>" class="btn">
-                                <span>view&nbsp;more</span>
-                                <div class="btn__arrow"></div>
-                            </a>
                         </div>
-                    <?php else: ?>
-                        <div class="campaign__no-posts no-posts">
-                <p class="no-posts__text">投稿がありません。</p>
-              </div>
-                    <?php endif; wp_reset_postdata();?>
-             
-            </div>
-        </div>
+                    </div>
+                </li>
+                <?php endwhile; ?>
+                </ul>
+                <!-- view more ボタン -->
+                <div class="campaign__btn">
+                    <a href="<?php echo get_post_type_archive_link('campaign'); ?>" class="btn">
+                        <span>view&nbsp;more</span>
+                        <div class="btn__arrow"></div>
+                    </a>
+                </div>
+            <?php else: ?>
+                <div class="campaign__no-posts no-posts">
+                    <p class="no-posts__text">投稿がありません。</p>
+                </div>
+            <?php endif; wp_reset_postdata();?>
+    </div>
+</div>
+
     </div>
 </section>
 

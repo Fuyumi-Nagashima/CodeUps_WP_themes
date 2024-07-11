@@ -3,7 +3,7 @@
     <section class="layout-home-mv sub-mv">
         <div class="sub-mv__page-header">
             <h1 class="sub-mv__title">
-                <?php
+                <?php //the_archive_title();の余分な文字列はfunctions.phpで打ち消す
                 the_archive_title(); 
                 ?>
             </h1>

@@ -119,12 +119,11 @@
     height:100%;
 }  
 }
-.campaign-list__information-wrap p{
+.campaign-list__information-text{
      @include mq('md'){
     flex-grow:1;
     }
 }
-
 
 /*下層ページ(page-campaign)のCSS*/
 .campaign-list__body--subpage{

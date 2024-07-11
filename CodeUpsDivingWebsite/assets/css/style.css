@@ -3815,7 +3815,7 @@ html {
 	height: 100%;
 }
 
-.campaign-list__information-wrap p {
+.campaign-list__information-text {
 	flex-grow: 1;
 }
 
