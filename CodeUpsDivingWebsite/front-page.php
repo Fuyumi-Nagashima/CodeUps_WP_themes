@@ -64,16 +64,17 @@
     <div class="swiper js-campaign-swiper">
         <ul class="swiper-wrapper campaign-swiper__wrapper">
             <?php
+             // クエリの設定
             $args = array(
-                'post_type' => 'campaign',
-                'orderby' => 'date',
-                'order' => 'DESC',
-                'posts_per_page' => -1
+                'post_type' => 'campaign', // カスタム投稿タイプ「campaign」
+                'orderby' => 'date', // 日付でソート
+                'order' => 'DESC',  // 降順（新しい順）
+                'posts_per_page' => -1 // すべての投稿を取得
             );
-            $the_query = new WP_Query($args);
+            $the_query = new WP_Query($args); // WP_Queryオブジェクトの生成
             ?>
-            <?php if ($the_query->have_posts()): ?>
-                <?php while ($the_query->have_posts()): $the_query->the_post(); ?>
+            <?php if ($the_query->have_posts()): //投稿が存在する場合 ?>
+                <?php while ($the_query->have_posts()): $the_query->the_post();  // 投稿ループ ?>
                 <li class="swiper-slide campaign-swiper__slide page-campaign__card campaign-list"
                     data-category="<?php echo get_the_terms(get_the_ID(), 'campaign_category')[0]->slug; ?>">
                     <div class="campaign-list__link">

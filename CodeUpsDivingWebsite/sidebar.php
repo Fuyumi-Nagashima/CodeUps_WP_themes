@@ -93,19 +93,18 @@
     </div>
 
     <!-- キャンペーンセクション -->
-    <!-- キャンペーンセクション -->
     <div class="aside-wrapper__review aside-campaign">
         <h2 class="aside-wrapper__title"><span>キャンペーン</span></h2>
         <ul class="aside-campaign__wrapper aside-cards">
             <?php
-      $args = array(
-        'post_type' => 'campaign', 
-        'orderby' => 'date',
-        'order' => 'DESC',
-        'posts_per_page' => 2
-      );
-      $the_query = new WP_Query($args);
-    ?>
+            $args = array(
+            'post_type' => 'campaign', 
+            'orderby' => 'date',
+            'order' => 'DESC',
+            'posts_per_page' => 2
+        );
+        $the_query = new WP_Query($args);
+         ?>
             <?php if ($the_query->have_posts()): ?>
             <?php while ($the_query->have_posts()): $the_query->the_post(); ?>
             <li class="aside-cards__card aside-card campaign-list"
@@ -157,48 +156,45 @@
         </div>
     </div>
 
-    <!-- アーカイブセクション -->
     <div class="aside-wrapper__archive asideblog-archive">
         <h2 class="aside-wrapper__title"><span>アーカイブ</span></h2>
         <!-- アーカイブの中身 -->
         <div class="asideblog-archive__lists asideblog-lists">
             <?php
-                global $wpdb;
+      // 投稿年ごとにグループ化
+      $blog_by_year = array();
+      $args = array(
+        'post_type' => 'post',
+        'post_status' => 'publish', //公開状態
+        'posts_per_page' => -1, //全ての投稿
+      );
+      $the_query = new WP_Query($args);
+      while ($the_query->have_posts()) : $the_query->the_post();
+        $year = get_the_date('Y');
+        $month = get_the_date('n');
+        $blog_by_year[$year][$month][] = $post;
+      endwhile;
+      wp_reset_postdata();
 
-                // 年ごとのアーカイブを取得
-                $years = $wpdb->get_col("SELECT DISTINCT YEAR(post_date) FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' ORDER BY post_date DESC");
+      // 投稿年でループ
+      foreach ($blog_by_year as $year => $years) :
+      ?>
 
-                // 各年ごとのループ
-                foreach ($years as $year) {
-                    ?>
             <div class="asideblog-lists__list asideblog-list">
                 <h3 class="asideblog-list__year js-asideblog-list__year"><?php echo $year; ?></h3>
                 <ul class="aideblog-list__container">
                     <?php
-                            // 各年の各月ごとのアーカイブを取得
-                            $months = $wpdb->get_col("SELECT DISTINCT MONTH(post_date) FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' AND YEAR(post_date) = '$year' ORDER BY post_date DESC");
-
-                            // 各月ごとのループ
-                            foreach ($months as $month) {
-                                // 各月の投稿数を取得
-                                $post_count = $wpdb->get_var("
-                                    SELECT COUNT(*) FROM $wpdb->posts
-                                    WHERE post_status = 'publish' AND post_type = 'post'
-                                    AND YEAR(post_date) = '$year' AND MONTH(post_date) = '$month'
-                                ");
-                                ?>
+            // 投稿をループ
+            foreach ($years as $month => $blog) :
+              setup_postdata($post);
+            ?>
                     <li class="asideblog-list__month js-asideblog-list__month">
-                        <a href="<?php echo get_month_link($year, $month); ?>">
-                            <?php echo $month; ?>月 (<?php echo $post_count; ?>)
-                        </a>
+                        <a
+                            href="<?php echo esc_url(home_url($year.'/'.$month.'/')); ?>"><?php echo esc_html($month); ?>月</a>
                     </li>
-                    <?php
-                            }
-                            ?>
+                    <?php endforeach; ?>
                 </ul>
             </div>
-            <?php
-                }
-                ?>
+            <?php endforeach; ?>
         </div>
     </div>

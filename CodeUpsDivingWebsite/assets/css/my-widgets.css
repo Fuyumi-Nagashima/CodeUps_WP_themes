@@ -1,39 +1,4 @@
-/* 基本設定ウィジェットのスタイル */
-.basic_settings_widget .widget-links {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .basic_settings_widget .widget-links li {
-    margin-bottom: 10px;
-  }
-  
-  .basic_settings_widget .widget-icon {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    justify-content: flex-start;
-    background-color: #fff;
-  }
-  
-  .basic_settings_widget .widget-icon span {
-    font-size: 30px;
-    margin-top: 0;
-  }
-  
-  .basic_settings_widget .widget-icon p {
-    margin-top: 15px;
-    padding: 0;
-  }
-  
-  .basic_settings_widget .widget-icon:hover {
-    opacity: 0.6;
-  }*/
-
-
-
-
-  @charset "UTF-8";
+@charset "UTF-8";
 
 /* ダッシュボード */
 a {

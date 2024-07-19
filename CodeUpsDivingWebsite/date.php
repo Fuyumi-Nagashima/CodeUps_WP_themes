@@ -17,7 +17,7 @@
             } ?>
         </div>
     </div>
-    <!-- ブログ詳細ページ -->
+     <!-- 月別ブログ一覧 -->
     <div class="layout-two-column two-column">
         <div class="two-column__inner inner">
             <div class="two-column__flex">
